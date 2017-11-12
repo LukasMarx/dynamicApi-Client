@@ -1,0 +1,12 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.card {
+    width: 100%;
+    margin: 8px;
+}
