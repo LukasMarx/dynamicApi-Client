@@ -1,3 +1,16 @@
-<p>
-  secure works!
-</p>
+<div fxLayout="column" fxFlex>
+  <mat-sidenav-container fxFlex>
+    <mat-sidenav mode="side" opened="true" class="primary">
+      <span class="site-title">malcoded admin</span>
+      <mat-list>
+        <mat-list-item>
+          <mat-icon mat-list-icon>apps</mat-icon>
+          <p mat-line>Schema</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <div class="content" fxLayout="column">
+      <router-outlet fxFlex></router-outlet>
+    </div>
+  </mat-sidenav-container>
+</div>

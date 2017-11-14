@@ -1,13 +1,9 @@
-.icon {
-  cursor: pointer;
+.content {
+  padding: 16px;
 }
 
 mat-card {
   margin-bottom: 16px;
-}
-
-.content {
-  padding: 16px;
 }
 
 .list-icon {
@@ -19,4 +15,9 @@ mat-card {
 
 .title {
   font-size: 28px;
+}
+
+.small-list-icon {
+  margin-left: 16px;
+  cursor: pointer;
 }

@@ -1,15 +1,23 @@
-<mat-toolbar color="primary">
-  Schema
-  <span class="spacer"></span>
-  <mat-icon class="icon" (click)="onAddType()">add</mat-icon>
-</mat-toolbar>
-<mat-grid-list cols="4">
-  <mat-grid-tile *ngFor="let type of types; trackBy: trackbyName" colspan="1" rowspan="1">
-    <mat-card class="card">
-      <h1>{{type.name}}</h1>
-      <mat-card-content>
-        <p *ngFor="let field of type.fields">- {{field.name}}</p>
+<div fxFlex fxLayout="column">
+  <mat-toolbar color="primary">
+    Schema
+    <span fxFlex></span>
+    <mat-icon class="icon" (click)="onAddType()">add</mat-icon>
+  </mat-toolbar>
+
+  <div class="content">
+
+    <mat-card *ngFor="let type of types; trackBy: trackbyName" [routerLink]="['/secure/type/' + type.name]">
+
+      <mat-card-content fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <mat-icon color="primary" class="list-icon">apps</mat-icon>
+        <span class="title">{{type.name}}</span>
+
+        <span fxFlex></span>
+
+        <mat-icon class="icon">delete</mat-icon>
       </mat-card-content>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+
+  </div>
+</div>

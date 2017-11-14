@@ -4,11 +4,25 @@ import { CommonModule } from '@angular/common';
 import { SecureComponent } from './secure.component';
 import { SecureRoutes } from './secure.routing';
 import { SchemaComponent } from './schema/schema.component';
-import { MatGridListModule } from '@angular/material';
+import {
+  MatSidenavModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatListModule
+} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    imports: [CommonModule, SecureRoutes],
-    declarations: [SecureComponent],
-    providers: [SchemaService]
+  imports: [
+    CommonModule,
+    SecureRoutes,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatIconModule,
+    FlexLayoutModule,
+    MatListModule
+  ],
+  declarations: [SecureComponent],
+  providers: [SchemaService]
 })
 export class SecureModule {}
