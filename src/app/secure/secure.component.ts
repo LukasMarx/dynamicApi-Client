@@ -1,3 +1,4 @@
+import { SchemaService } from './services/schema.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./secure.component.scss']
 })
 export class SecureComponent implements OnInit {
-  constructor() {}
+  types: any[];
 
-  ngOnInit() {}
+  constructor(private schemaService: SchemaService) {}
+
+  ngOnInit() {
+    this.schemaService.getAllTypes().subscribe(result => (this.types = result));
+  }
 }

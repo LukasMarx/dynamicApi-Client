@@ -3,6 +3,11 @@
     <mat-sidenav mode="side" opened="true" class="primary">
       <span class="site-title">malcoded admin</span>
       <mat-list>
+        <mat-list-item *ngFor="let type of types">
+          <mat-icon mat-list-icon>edit</mat-icon>
+          <p mat-line>{{type.name}}</p>
+        </mat-list-item>
+        <mat-divider color="#00"></mat-divider>
         <mat-list-item>
           <mat-icon mat-list-icon>apps</mat-icon>
           <p mat-line>Schema</p>

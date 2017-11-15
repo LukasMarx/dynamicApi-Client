@@ -29,7 +29,7 @@ const getTypeQuery = gql`
 
 const addFieldToTypeQuery = gql`
   mutation MutationType($typeName: String!, $field: FieldInput!) {
-    addField(type: $typeName, input: $field) {
+    addField(type: $typeName, field: $field) {
       name
       type
     }
@@ -83,7 +83,7 @@ export class SchemaService {
       variables: { name: name },
       update: (store, { data: { createType } }) => {
         const data = store.readQuery({ query: getAllTyesQuery });
-
+        console.log(data);
         (<any>data).types.push(createType);
         store.writeQuery({ query: getAllTyesQuery, data });
       }

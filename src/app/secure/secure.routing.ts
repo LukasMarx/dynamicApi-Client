@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path: 'type',
         loadChildren: './type/type.module#TypeModule'
+      },
+      {
+        path: 'content',
+        loadChildren: './content/content.module#ContentModule'
       }
     ]
   }
