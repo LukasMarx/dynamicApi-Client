@@ -16,7 +16,7 @@ export class SchemaComponent implements OnInit {
   ngOnInit() {
     this.schemaService.getAllTypes().subscribe(response => {
       console.log(response);
-      this.types = response;
+      this.types = <any>response;
     });
   }
 
@@ -29,5 +29,9 @@ export class SchemaComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.schemaService.addType(result).subscribe();
     });
+  }
+
+  onRemoveType(type) {
+    this.schemaService.removeType(type.name).subscribe();
   }
 }

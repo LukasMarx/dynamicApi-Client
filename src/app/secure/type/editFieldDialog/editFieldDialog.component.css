@@ -1,0 +1,22 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.container {
+  height: 100%;
+}
+
+.actions {
+  justify-content: flex-end;
+}
+
+mat-divider {
+  margin-bottom: 8px;
+}
+
+.section-title {
+  margin-top: 16px;
+}

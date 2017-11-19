@@ -12,11 +12,30 @@ export class NewFieldDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  private result: string;
+  types = [
+    {
+      name: 'Integer',
+      value: 'INTEGER'
+    },
+    {
+      name: 'String',
+      value: 'STRING'
+    },
+    {
+      name: 'Text',
+      value: 'BIG_TEXT'
+    },
+    {
+      name: 'Image',
+      value: 'IMAGE'
+    }
+  ];
+
+  private field = {};
 
   ngOnInit() {}
 
   closeDialog() {
-    this.dialogRef.close(this.result);
+    this.dialogRef.close(this.field);
   }
 }

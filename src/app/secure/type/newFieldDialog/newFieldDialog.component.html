@@ -1,11 +1,36 @@
-<h2 mat-dialog-title>Create a new Field</h2>
-<mat-dialog-content>
-  <mat-form-field class="full-width">
-    <input matInput placeholder="Name" [(ngModel)]="result">
-  </mat-form-field>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <!-- Can optionally provide a result for the closing dialog. -->
-  <button mat-raised-button color="primary" (click)="closeDialog()">OK</button>
-</mat-dialog-actions>
+<div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+  <h2 mat-dialog-title>Create a new Field</h2>
+  <mat-dialog-content fxFlex>
+    <span class="section-title">Properties</span>
+    <mat-divider></mat-divider>
+    <section>
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Name" [(ngModel)]="field.name">
+      </mat-form-field>
+    </section>
+    <section>
+      <mat-form-field>
+        <mat-select placeholder="Type" [(ngModel)]="field.type">
+          <mat-option *ngFor="let type of types" [value]="type.value">
+            {{ type?.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-icon color="warning">info</mat-icon>
+    </section>
+
+    <span class="section-title">Metadata</span>
+    <mat-divider></mat-divider>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Display Group" [(ngModel)]="field.displayGroup">
+    </mat-form-field>
+    <section>
+      <mat-checkbox [disabled]="!field.displayGroup" [(ngModel)]="field.fullPage">FullPage</mat-checkbox>
+    </section>
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button mat-raised-button color="primary" (click)="closeDialog()">OK</button>
+  </mat-dialog-actions>
+</div>

@@ -12,6 +12,17 @@ export class EditFieldDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
+  types = [
+    {
+      name: 'Integer',
+      value: 'INTEGER'
+    },
+    {
+      name: 'String',
+      value: 'STRING'
+    }
+  ];
+
   private field;
 
   ngOnInit() {

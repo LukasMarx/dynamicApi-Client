@@ -12,7 +12,10 @@ import {
   MatButtonModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTabsModule
+  MatTabsModule,
+  MatCheckboxModule,
+  MatSelectModule,
+  MatListModule
 } from '@angular/material';
 import { NewFieldDialogComponent } from './newFieldDialog/newFieldDialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -32,7 +35,10 @@ import { EditFieldDialogComponent } from './editFieldDialog/editFieldDialog.comp
     FlexLayoutModule,
     MatToolbarModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatListModule
   ],
   declarations: [TypeComponent, NewFieldDialogComponent, EditFieldDialogComponent],
   entryComponents: [NewFieldDialogComponent, EditFieldDialogComponent]

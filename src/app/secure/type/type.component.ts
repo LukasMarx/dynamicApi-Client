@@ -34,7 +34,21 @@ export class TypeComponent implements OnInit {
   }
 
   onAddField() {
-    const dialogRef = this.dialog.open(NewFieldDialogComponent, {});
+    const dialogRef = this.dialog.open(NewFieldDialogComponent, { width: '50%', height: '50%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.schemaService.addFieldToType(this.type.name, result).subscribe();
+      }
+    });
+  }
+
+  onEditField(field) {
+    console.log(field);
+    const dialogRef = this.dialog.open(EditFieldDialogComponent, {
+      width: '50%',
+      height: '50%',
+      data: { field: field }
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.schemaService
@@ -44,15 +58,7 @@ export class TypeComponent implements OnInit {
     });
   }
 
-  onEditField(field) {
-    console.log(field);
-    const dialogRef = this.dialog.open(EditFieldDialogComponent, { data: { field: field } });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.schemaService
-          .addFieldToType(this.type.name, { name: result, type: 'STRING' })
-          .subscribe();
-      }
-    });
+  onRemoveField(field) {
+    this.schemaService.removeFieldFromType(this.type.name, field.name).subscribe();
   }
 }

@@ -2,7 +2,10 @@
   <mat-toolbar color="primary">
     Type: {{type?.name}}
     <span fxFlex></span>
-    <mat-icon class="icon" matTooltip="Add a new Field!" (click)="onAddField()">add</mat-icon>
+    <button mat-button class="icon" (click)="onAddField()" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>add_circle_outline</mat-icon>
+      Add Field
+    </button>
   </mat-toolbar>
   <mat-tab-group>
     <mat-tab label="Fields">
@@ -17,7 +20,7 @@
             <span fxFlex></span>
 
             <mat-icon class="small-list-icon" (click)="onEditField(field)">edit</mat-icon>
-            <mat-icon class="small-list-icon">delete</mat-icon>
+            <mat-icon class="small-list-icon" (click)="onRemoveField(field)">delete</mat-icon>
           </mat-card-content>
         </mat-card>
       </div>

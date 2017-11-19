@@ -3,19 +3,19 @@
     <mat-sidenav mode="side" opened="true" class="primary">
       <span class="site-title">malcoded admin</span>
       <mat-list>
-        <mat-list-item *ngFor="let type of types">
+        <mat-list-item *ngFor="let type of types" [routerLink]="['content/overview/'+type.name]">
           <mat-icon mat-list-icon>edit</mat-icon>
           <p mat-line>{{type.name}}</p>
         </mat-list-item>
-        <mat-divider color="#00"></mat-divider>
-        <mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['schema']">
           <mat-icon mat-list-icon>apps</mat-icon>
           <p mat-line>Schema</p>
         </mat-list-item>
       </mat-list>
     </mat-sidenav>
-    <div class="content" fxLayout="column">
-      <router-outlet fxFlex></router-outlet>
+    <div class="content">
+      <router-outlet></router-outlet>
     </div>
   </mat-sidenav-container>
 </div>

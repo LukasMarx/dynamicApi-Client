@@ -20,3 +20,8 @@ mat-card {
 .title {
   font-size: 28px;
 }
+
+.small-list-icon {
+  margin-left: 16px;
+  cursor: pointer;
+}

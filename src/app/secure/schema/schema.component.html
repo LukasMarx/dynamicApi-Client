@@ -2,20 +2,24 @@
   <mat-toolbar color="primary">
     Schema
     <span fxFlex></span>
-    <mat-icon class="icon" (click)="onAddType()">add</mat-icon>
+    <button mat-button class="icon" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon (click)="onAddType()">add_circle_outline</mat-icon>
+      Add Type
+    </button>
   </mat-toolbar>
 
   <div class="content">
 
-    <mat-card *ngFor="let type of types; trackBy: trackbyName" [routerLink]="['/secure/type/' + type.name]">
+    <mat-card *ngFor="let type of types; trackBy: trackbyName">
 
-      <mat-card-content fxFlex fxLayout="row" fxLayoutAlign="start center">
+      <mat-card-content fxFlex fxLayout="row " fxLayoutAlign="start center">
         <mat-icon color="primary" class="list-icon">apps</mat-icon>
-        <span class="title">{{type.name}}</span>
+        <span class="title ">{{type.name}}</span>
 
         <span fxFlex></span>
 
-        <mat-icon class="icon">delete</mat-icon>
+        <mat-icon class="small-list-icon" [routerLink]=" [ '/secure/type/' + type.name]">edit</mat-icon>
+        <mat-icon class="small-list-icon" (click)="onRemoveType(type)">delete</mat-icon>
       </mat-card-content>
     </mat-card>
 

@@ -1,6 +1,6 @@
 import { ContentService } from './../services/content.service';
 import { SchemaService } from './../services/schema.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, group } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
@@ -40,6 +40,10 @@ export class ContentComponent implements OnInit {
         });
       })
     );
+  }
+
+  onAddContent() {
+    this.contentService.create(this.type.name).subscribe();
   }
 }
 

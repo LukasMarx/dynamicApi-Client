@@ -9,7 +9,6 @@ const getAllTyesQuery = gql`
       name
       fields {
         name
-        type
       }
     }
   }
@@ -22,6 +21,8 @@ const getTypeQuery = gql`
       fields {
         name
         type
+        displayGroup
+        fullPage
       }
     }
   }
@@ -32,6 +33,8 @@ const addFieldToTypeQuery = gql`
     addField(type: $typeName, field: $field) {
       name
       type
+      displayGroup
+      fullPage
     }
   }
 `;
@@ -60,7 +63,6 @@ export class SchemaService {
       variables: { typeName: typeName, field: field },
       update: (store, { data: { addField } }) => {
         const data = store.readQuery({ query: getTypeQuery, variables: { name: typeName } });
-        console.log(data);
         (<any>data).type.fields.push(addField);
         store.writeQuery({ query: getTypeQuery, data, variables: { name: typeName } });
       }
@@ -83,9 +85,25 @@ export class SchemaService {
       variables: { name: name },
       update: (store, { data: { createType } }) => {
         const data = store.readQuery({ query: getAllTyesQuery });
-        console.log(data);
         (<any>data).types.push(createType);
         store.writeQuery({ query: getAllTyesQuery, data });
+      }
+    });
+  }
+
+  removeFieldFromType(typeName: string, name: string) {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation MutationType($type: String!, $name: String!) {
+          removeField(type: $type, name: $name)
+        }
+      `,
+      variables: { type: typeName, name: name },
+      update: (store, { data: { removeField } }) => {
+        const data = store.readQuery({ query: getTypeQuery, variables: { name: typeName } });
+        if ((<any>data).type.fields)
+          (<any>data).type.fields = (<any>data).type.fields.filter(x => x.name != removeField);
+        store.writeQuery({ query: getTypeQuery, variables: { name: typeName }, data });
       }
     });
   }
@@ -94,13 +112,16 @@ export class SchemaService {
     return this.apollo.mutate({
       mutation: gql`
         mutation MutationType($name: String!) {
-          removeType(name: $name) {
-            name
-            type
-          }
+          removeType(name: $name)
         }
       `,
-      variables: { name: name }
+      variables: { name: name },
+      update: (store, { data: { removeType } }) => {
+        const data = store.readQuery({ query: getAllTyesQuery });
+        if ((<any>data).types)
+          (<any>data).types = (<any>data).types.filter(x => x.name != removeType);
+        store.writeQuery({ query: getAllTyesQuery, data });
+      }
     });
   }
 }

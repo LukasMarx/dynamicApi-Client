@@ -4,7 +4,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContentComponent } from './content.component';
 import { ContentRoutes } from './content.routing';
-import { MatToolbarModule, MatIconModule, MatTableModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatIconModule,
+  MatTableModule,
+  MatButtonModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -13,7 +18,8 @@ import { MatToolbarModule, MatIconModule, MatTableModule } from '@angular/materi
     MatToolbarModule,
     MatIconModule,
     FlexLayoutModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ],
   declarations: [ContentComponent],
   providers: [ContentService]

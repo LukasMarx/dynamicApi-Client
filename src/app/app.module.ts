@@ -31,5 +31,13 @@ export class AppModule {
       link: httpLink.create({ uri: 'http://localhost:8000/admin/api' }),
       cache: new InMemoryCache()
     });
+
+    apollo.create(
+      {
+        link: httpLink.create({ uri: 'http://localhost:8000/api' }),
+        cache: new InMemoryCache()
+      },
+      'content'
+    );
   }
 }
