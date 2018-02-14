@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  Conent: {{data?.type?.name}}
+  <span fxFlex></span>
+  <button mat-button class="icon" (click)="onAddContent()" fxLayout="column" fxLayoutAlign="center end">
+    <mat-icon>add_circle_outline</mat-icon>
+    Add {{type?.name}}
+  </button>
+</mat-toolbar>
+
+<mat-table #table [dataSource]="dataSource">
+
+  <ng-container *ngFor="let field of data?.type?.fields | values" matColumnDef="{{field.name}}">
+    <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element[field.name]}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['../../detail/'+data.type.name+'/'+row.id]"></mat-row>
+</mat-table>

@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  Assets
+  <span fxFlex></span>
+  <button mat-button class="icon" (click)="onUploadAsset()" fxLayout="column" fxLayoutAlign="center end">
+    <mat-icon>cloud_upload</mat-icon>
+    Upload Asset
+  </button>
+</mat-toolbar>
+
+
+<mat-grid-list cols="6" rowHeight="150">
+  <mat-grid-tile class="tile" *ngFor="let asset of assets$ | async" fxFlex>
+    <mat-card class="card" fxFlex>
+      <div class="container" fxFlex fxLayout="row" fxLayoutAlign="space-evenly center">
+
+        <img class="image" fxFlex [src]="baseUrl+projectId+'/' + asset.fileName + '/webp/800'" />
+      </div>
+      <mat-card-content>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

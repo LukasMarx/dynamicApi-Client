@@ -1,0 +1,19 @@
+.image-item {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.image-item.selected {
+  background-color: #ffaaaa;
+}
+
+.image {
+  width: 100%;
+}
+
+.modal-body {
+  float: left;
+  overflow-x: scroll;
+}

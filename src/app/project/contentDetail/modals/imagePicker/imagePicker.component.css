@@ -1,0 +1,25 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.actions {
+  justify-content: flex-end;
+}
+
+.image {
+  width: 100%;
+}
+
+.container {
+  position: absolute;
+  height: 100%;
+}
+
+.card {
+  margin: 8px;
+  padding: 0;
+  padding-bottom: 56.25%;
+}

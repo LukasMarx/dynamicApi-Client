@@ -1,0 +1,47 @@
+.type-content {
+  padding: 16px;
+}
+
+.type-container {
+  height: 100%;
+}
+
+mat-card {
+  margin-bottom: 16px;
+}
+
+.list-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
+}
+
+.perm-row {
+  margin: 16px;
+}
+
+.title {
+  font-size: 28px;
+}
+
+.small-list-icon {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.mat-tab-body-wrapper {
+  flex: 1;
+}
+
+:host {
+  height: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+#table td {
+  text-align: center;
+  vertical-align: middle;
+}

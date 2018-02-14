@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Select Image</h2>
+<mat-dialog-content fxFlex>
+  <mat-grid-list cols="6" rowHeight="100">
+    <mat-grid-tile class="tile" (click)="imageClicked(image)" *ngFor="let image of images$ | async" fxFlex>
+      <mat-card class="card" fxFlex>
+        <div class="container" fxFlex fxLayout="row" fxLayoutAlign="space-evenly center">
+          <img class="image" fxFlex [src]="assetUrl + data.projectId + '/' + image.fileName + '/webp/800'" />
+        </div>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

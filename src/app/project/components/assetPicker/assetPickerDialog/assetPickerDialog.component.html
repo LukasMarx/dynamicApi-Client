@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Select Image</h2>
+<mat-dialog-content>
+  <div class="image-item" *ngFor="let item of items" (click)="select(item)">
+    <img class="image" [src]="assetUrl +data.projectId+'/asset/' + item.fileName" />
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-raised-button color="primary" (click)="closeDialog()">Ok</button>
+</mat-dialog-actions>

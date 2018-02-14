@@ -1,0 +1,5 @@
+<div class="picker-wrapper" (click)="onClick()">
+  <div class="picker-body">
+    <img *ngIf="source != null" class="image" [src]="assetUrl + projectId+'/asset/' + source" />
+  </div>
+</div>

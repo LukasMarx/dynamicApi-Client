@@ -1,0 +1,16 @@
+<div fxFlex fxLayout="row" fxLayoutAlign="center center" class="login-container">
+  <div fxFlex="25">
+
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Username" [(ngModel)]="username">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input matInput type="password" placeholder=" Password" [(ngModel)]="password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="full-width" (click)="onSubmit()">Sign In</button>
+    <button mat-button color="primary" class="full-width forgot-pw-btn">Forgot Password</button>
+
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.picker-body {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.picker-wrapper {
+  width: 200px;
+  height: 200px;
+  background-color: lightgray;
+  border: 1px dashed black;
+}
+
+.image {
+  vertical-align: middle;
+  width: 100%;
+  display: inline-block;
+}

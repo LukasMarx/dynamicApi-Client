@@ -1,0 +1,11 @@
+@mixin basic-colors($theme) {
+  $primary: map-get($theme, primary);
+
+  .primary {
+    background-color: mat-color($primary);
+  }
+}
+
+.sidenav-item {
+  color: white !important;
+}

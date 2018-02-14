@@ -1,0 +1,23 @@
+<div fxFlex fxLayout="column" class="container">
+  <mat-toolbar color="primary">
+    Projects
+    <span fxFlex></span>
+    <button mat-button class="icon" (click)="onAddProject()" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>add_circle_outline</mat-icon>
+      Add Project
+    </button>
+  </mat-toolbar>
+
+  <div fxFlex class="grid">
+    <mat-grid-list fxFlex cols="6" rowHeight="150">
+      <mat-grid-tile class="tile" *ngFor="let project of projects$ | async" fxFlex>
+        <mat-card class="card" fxFlex [routerLink]="['/project/'+project.id +'/schema']">
+          <mat-card-content>
+            <h3>{{project.name}}</h3>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </div>
+</div>

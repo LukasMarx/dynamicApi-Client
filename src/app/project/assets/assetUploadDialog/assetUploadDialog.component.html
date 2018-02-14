@@ -1,0 +1,25 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
+
+  <div>
+    <span>Upload Files</span>
+    <span fxFlex></span>
+    <input type="file" #file style="display: none" (change)="onChange()" multiple />
+    <button mat-raised-button color="primary" class="btn" (click)="onClick()">
+      <mat-icon>add</mat-icon>
+      Add Files
+    </button>
+  </div>
+  <mat-dialog-content fxFlex>
+    <mat-list>
+      <mat-list-item *ngFor="let file of files">
+        <h4 mat-line>{{file.name}}</h4>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <!-- Can optionally provide a result for the closing dialog. -->
+    <button mat-raised-button color="primary" (click)="closeDialog()">OK</button>
+  </mat-dialog-actions>
+</div>

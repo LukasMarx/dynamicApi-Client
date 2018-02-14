@@ -1,0 +1,109 @@
+<div fxLayout="column" class="type-container">
+  <mat-toolbar color="primary">
+    Type: {{type?.name}}
+    <span fxFlex></span>
+    <button mat-button class="icon" (click)="onAddField()" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>add_circle_outline</mat-icon>
+      Add Field
+    </button>
+    <button *ngIf="unsavedChanges" mat-button class="icon" (click)="onSaveChanges()" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>save</mat-icon>
+      Save Changes
+    </button>
+  </mat-toolbar>
+  <mat-tab-group fxFlex>
+    <mat-tab fxFlex label="Fields" fxLayout="row">
+      <div class="type-content" fxFlex>
+
+        <mat-card *ngFor="let field of (workingCopy?.fields | values); trackBy: trackbyName">
+
+          <mat-card-content fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon color="primary" class="list-icon">fullscreen</mat-icon>
+            <span class="title">{{field.name}}</span>
+
+            <span fxFlex></span>
+
+            <mat-icon class="small-list-icon" (click)="onEditField(field)">edit</mat-icon>
+            <mat-icon class="small-list-icon" (click)="onRemoveField(field)">delete</mat-icon>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <mat-tab label="Authorization" fxFlex fxFlex fxLayout="row">
+      <div fxFlex>
+        <table id="table" style="width:100%">
+          <tr>
+            <th>Authentication</th>
+            <th>Read</th>
+            <th>ReadAll</th>
+            <th>Create</th>
+            <th>Update</th>
+            <th>Delete</th>
+
+          </tr>
+          <tr>
+            <td>
+              <span>Anonymous</span>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.anonymous.read" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.anonymous.readAll" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.anonymous.create" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.anonymous.update" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.anonymous.delete" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>Read Only Key</span>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.roAuthKey.read" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.roAuthKey.readAll" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox disabled></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox disabled></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox disabled></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>Key</span>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.read" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.readAll" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.create" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.update" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.delete" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,29 @@
+<div fxLayout="column" fxFlex>
+  <mat-sidenav-container fxFlex>
+    <mat-sidenav mode="side" opened="true" class="primary">
+      <span class="site-title">malcoded admin</span>
+      <mat-list>
+        <mat-list-item class="sidenav-item" *ngFor="let type of types" [routerLink]="['content/overview/'+type.name]">
+          <mat-icon mat-list-icon>edit</mat-icon>
+          <p mat-line>{{type.name}}</p>
+        </mat-list-item>
+        <mat-list-item class="sidenav-item" [routerLink]="['assets']">
+          <mat-icon mat-list-icon>insert_photo</mat-icon>
+          <p mat-line>Assets</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item class="sidenav-item" [routerLink]="['schema']">
+          <mat-icon mat-list-icon>apps</mat-icon>
+          <p mat-line>Schema</p>
+        </mat-list-item>
+        <mat-list-item class="sidenav-item" [routerLink]="['settings']">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <p mat-line>Settings</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-container>
+</div>

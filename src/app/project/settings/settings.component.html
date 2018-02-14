@@ -1,0 +1,22 @@
+<div fxFlex fxLayout="column">
+  <mat-toolbar color="primary">
+    Settings
+    <span fxFlex></span>
+    <!-- <button mat-button (click)="onAddType()" class="icon" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>add_circle_outline</mat-icon>
+      Add Type
+    </button> -->
+  </mat-toolbar>
+
+
+  <mat-tab-group>
+    <mat-tab label="Keys">
+      <div class="content">
+        <button mat-button (click)="generateKey()">Get Key</button>
+        <mat-form-field *ngIf="authKey" readonly>
+          <input matInput placeholder="Key" [(ngModel)]="authKey">
+        </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

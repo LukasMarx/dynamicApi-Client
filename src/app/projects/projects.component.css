@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.card {
+  margin: 8px;
+}
+
+.grid {
+  padding: 16px;
+}
