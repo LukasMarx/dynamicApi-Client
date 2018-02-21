@@ -14,19 +14,21 @@
   <mat-tab-group fxFlex>
     <mat-tab *ngFor="let group of groups" [label]="group.name" fxFlex fxLayout="row" fxLayoutAlign="space-between stretch">
       <div class="tab-content">
-        <editor [projectId]="projectId" *ngIf="group.fullPage && group.fields[0]?.type === 'BIG_TEXT'" [fullDelta]="content[group.fields[0]?.name]"
-          (fullDeltaChange)="onEditorDeltaChanged(group.fields[0]?.name, $event)"></editor>
-        <div *ngFor="let field of group.fields">
-          <mat-form-field *ngIf="field.type == 'STRING'">
-            <input matInput [placeholder]="field.name" [(ngModel)]="content[field.name]">
+        <div style="height: 100%; max-height: 100%;" *ngIf=" group.fullPage && group.fields[0]?.type==='BIG_TEXT' " fxFlex fxLayout="column">
+          <editor [projectId]="projectId " [fullDelta]="content[group.fields[0]?.name] " (fullDeltaChange)="onEditorDeltaChanged(group.fields[0]?.name,
+        $event) "></editor>
+        </div>
+        <div *ngFor="let field of group.fields ">
+          <mat-form-field *ngIf="field.type=='STRING' ">
+            <input matInput [placeholder]="field.name " [(ngModel)]="content[field.name] ">
           </mat-form-field>
-          <div class="form-cont" *ngIf="field.type == 'ASSET'">
+          <div class="form-cont " *ngIf="field.type=='ASSET' ">
             <h4>{{field.name}}</h4>
-            <app-assetPicker [(source)]="content[field.name]" [projectId]="projectId"></app-assetPicker>
+            <app-assetPicker [(source)]="content[field.name] " [projectId]="projectId "></app-assetPicker>
           </div>
-          <mat-form-field *ngIf="field.type == 'DATE'">
-            <input matInput [(ngModel)]="content[field.name]" [matDatepicker]="picker" [placeholder]="field.name">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-form-field *ngIf="field.type=='DATE' ">
+            <input matInput [(ngModel)]="content[field.name] " [matDatepicker]="picker " [placeholder]="field.name ">
+            <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>

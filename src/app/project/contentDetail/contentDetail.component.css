@@ -13,8 +13,16 @@
   flex: 1;
 }
 
+.mat-tab-body-wrapper > * {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
 .tab-content {
   padding: 16px;
+  flex: 1;
+  flex-flow: column nowrap;
+  height: 100%;
 }
 
 .form-cont {
@@ -23,7 +31,7 @@
 }
 
 editor {
-  height: 100%;
+  height: calc(100% - 50px);
   display: flex;
   flex-direction: column;
   display: flex;

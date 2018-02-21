@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "5.2.5",
     "@angular/router": "5.2.5",
     "@types/lodash": "^4.14.85",
+    "angular2-notifications": "^0.9.7",
     "apollo-angular": "^1.0.0",
     "apollo-angular-link-http": "^1.0.0",
     "apollo-cache-inmemory": "^1.1.0",

@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProjectService } from './services/project.service';
 import { setContext } from 'apollo-link-context';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,8 @@ import { setContext } from 'apollo-link-context';
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [AccountService, ProjectService],
   bootstrap: [AppComponent]

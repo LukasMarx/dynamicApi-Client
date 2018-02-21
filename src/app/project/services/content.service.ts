@@ -18,7 +18,10 @@ export class ContentService {
     return Observable.create(observer => {
       this.schemaService.getType(projectId, typeName).subscribe(type => {
         if (type) {
-          let query = 'query ($projectId: String!){' + type.name + 's (projectId: $projectId){';
+          let query =
+            'query ($projectId: String!){' +
+            type.name +
+            's (projectId: $projectId){';
           query += 'id\n';
           for (let fieldKey in type.fields) {
             query += type.fields[fieldKey].name + '\n';
@@ -60,9 +63,6 @@ export class ContentService {
             mutation += type.fields[fieldKey].name + '\n';
           }
           mutation += '}}';
-          console.log(mutation);
-
-          console.log(gql([mutation]));
 
           this.apollo
             .use('content')
@@ -78,14 +78,14 @@ export class ContentService {
               //   });
               // }
 
-              variables: { projectId: projectId, input: input },
+              variables: { projectId: projectId, input: input }
 
-              refetchQueries: [
-                {
-                  query: this.getByIdQueries[type.name + input.Id],
-                  variables: { projectId: projectId, id: input.Id }
-                }
-              ]
+              // refetchQueries: [
+              //   {
+              //     query: this.getByIdQueries[type.name + input.Id],
+              //     variables: { projectId: projectId, id: input.Id }
+              //   }
+              // ]
             })
             .pipe(map(x => x.data['create' + type.name]))
             .subscribe(value => {
@@ -165,7 +165,10 @@ export class ContentService {
               variables: { projectId: projectId },
               context: { uri: 'http://localhost:8000/' + projectId + '/api' },
               refetchQueries: [
-                { query: this.getAllQueries[type.name], variables: { projectId: projectId } }
+                {
+                  query: this.getAllQueries[type.name],
+                  variables: { projectId: projectId }
+                }
               ]
             })
             .pipe(map(x => x.data['create' + type.name]))

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ContentService } from '../services/content.service';
 import { ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-contentDetail',
@@ -17,7 +18,8 @@ export class ContentDetailComponent implements OnInit {
     private schemaService: SchemaService,
     private route: ActivatedRoute,
     private contentService: ContentService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private notificationService: NotificationsService
   ) {}
 
   type;
@@ -58,7 +60,9 @@ export class ContentDetailComponent implements OnInit {
           .getById(this.projectId, <string>params['type'], <string>params['id'])
           .subscribe(result => {
             const clone = JSON.parse(JSON.stringify(result));
-            const bigTexts = this.type.fields.filter(x => x.type === 'BIG_TEXT');
+            const bigTexts = this.type.fields.filter(
+              x => x.type === 'BIG_TEXT'
+            );
             bigTexts.forEach(field => {
               clone[field.name] = JSON.parse(clone[field.name]);
             });
@@ -77,11 +81,13 @@ export class ContentDetailComponent implements OnInit {
         groups.default['_'].push(field);
       } else {
         if (field.fullPage) {
-          if (!groups.fullpage[field.displayGroup]) groups.fullpage[field.displayGroup] = [];
+          if (!groups.fullpage[field.displayGroup])
+            groups.fullpage[field.displayGroup] = [];
 
           groups.fullpage[field.displayGroup].push(field);
         } else {
-          if (!groups.default[field.displayGroup]) groups.default[field.displayGroup] = [];
+          if (!groups.default[field.displayGroup])
+            groups.default[field.displayGroup] = [];
 
           groups.default[field.displayGroup].push(field);
         }
@@ -96,18 +102,30 @@ export class ContentDetailComponent implements OnInit {
     bigTexts.forEach(field => {
       clone[field.name] = JSON.stringify(clone[field.name]);
     });
-    this.contentService.updateById(this.projectId, this.type.name, clone).subscribe(
-      () => {
-        let snackBarRef = this.snackBar.open(this.type.name + ' saved successfully!', null, {
-          duration: 2000
-        });
-      },
-      () => {
-        let snackBarRef = this.snackBar.open('Saving failed!', null, {
-          duration: 4000
-        });
-      }
-    );
+    this.contentService
+      .updateById(this.projectId, this.type.name, clone)
+      .subscribe(
+        () => {
+          const toast = this.notificationService.success(
+            this.type.name + ' updated!',
+            '',
+            {
+              timeOut: 3000,
+              showProgressBar: true,
+              pauseOnHover: true,
+              clickToClose: true
+            }
+          );
+        },
+        () => {
+          const toast = this.notificationService.error('Update failed', '', {
+            timeOut: 4000,
+            showProgressBar: true,
+            pauseOnHover: true,
+            clickToClose: true
+          });
+        }
+      );
   }
 
   onReleaseContent() {

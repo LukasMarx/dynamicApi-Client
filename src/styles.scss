@@ -36,3 +36,11 @@ body {
   margin: 0;
   height: 100%;
 }
+
+.simple-notification.success {
+  background-color: mat-color($app-primary) !important;
+}
+
+.simple-notification.success .sn-progress-loader span {
+  background-color: mat-color($app-primary) !important;
+}
