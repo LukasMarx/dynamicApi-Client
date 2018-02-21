@@ -1,1 +1,18 @@
 
+.mat-row{
+    padding-top: 8px;
+    padding-bottom: 8px;
+
+}
+
+.mat-cell{
+    padding-right: 8px;
+}
+
+.search{
+    margin-left: 64px;
+}
+
+::placeholder { /* Most modern browsers support this now. */
+    color:    #fff;
+ }

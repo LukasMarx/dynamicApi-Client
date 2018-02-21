@@ -4,7 +4,7 @@
     <mat-grid-tile class="tile" (click)="imageClicked(image)" *ngFor="let image of images$ | async" fxFlex>
       <mat-card class="card" fxFlex>
         <div class="container" fxFlex fxLayout="row" fxLayoutAlign="space-evenly center">
-          <img class="image" fxFlex [src]="assetUrl + data.projectId + '/' + image.fileName + '/webp/800'" />
+          <img class="image" fxFlex [src]="assetUrl + '/'+ data.projectId + '/asset/' + image.fileName + '/webp/800'" />
         </div>
         <mat-card-content>
         </mat-card-content>

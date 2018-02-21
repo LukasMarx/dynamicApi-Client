@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://api.malcoded.com/v1',
-  assetUrl: 'https://assets.malcoded.com/v1'
+  baseUrl: 'https:/malcoded.com/api/v1',
+  assetUrl: 'https://malcoded.com/api/v1'
 };

@@ -1,5 +1,7 @@
 <mat-toolbar color="primary">
   Conent: {{data?.type?.name}}
+
+
   <span fxFlex></span>
   <button mat-button class="icon" (click)="onAddContent()" fxLayout="column" fxLayoutAlign="center end">
     <mat-icon>add_circle_outline</mat-icon>
@@ -7,11 +9,11 @@
   </button>
 </mat-toolbar>
 
-<mat-table #table [dataSource]="dataSource">
+<mat-table #table matSort [dataSource]="dataSource">
 
   <ng-container *ngFor="let field of data?.type?.fields | values" matColumnDef="{{field.name}}">
-    <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element[field.name]}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef mat-sort-header> {{field.name}} </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element[field.name] | shortener: 100}}  </mat-cell>
   </ng-container>
 
 

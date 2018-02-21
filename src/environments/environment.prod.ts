@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://api.malcoded.com/v1/',
-  assetUrl: 'https://assets.malcoded.com/v1/'
+  baseUrl: 'http://165.227.244.57/api/v1',
+  assetUrl: 'http://165.227.244.57/api/v1'
 };

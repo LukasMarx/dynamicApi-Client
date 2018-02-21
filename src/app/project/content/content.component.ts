@@ -18,7 +18,7 @@ import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class ContentComponent implements AfterViewInit {
   private subscriptions: Subscription[] = [];
-
+  public type: Type;
   displayedColumns = [];
 
   public dataSource: UniversalDataSource;

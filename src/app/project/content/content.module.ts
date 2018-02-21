@@ -9,8 +9,11 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatTableModule,
-  MatButtonModule
+  MatButtonModule,
+  MatInputModule
 } from '@angular/material';
+import { ShortenerPipe } from './shortener.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -21,9 +24,13 @@ import {
     FlexLayoutModule,
     MatTableModule,
     MatButtonModule,
-    PipesModule
+    PipesModule,
+    MatInputModule,
+    FormsModule
   ],
-  declarations: [ContentComponent],
+  declarations: [ContentComponent,
+    ShortenerPipe
+],
   providers: [ContentService]
 })
 export class ContentModule {}
