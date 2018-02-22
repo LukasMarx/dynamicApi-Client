@@ -10,6 +10,7 @@ import 'rxjs/add/observable/merge';
 import { map, flatMap } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-content',
@@ -22,6 +23,7 @@ export class ContentComponent implements AfterViewInit {
   displayedColumns = [];
 
   public dataSource: UniversalDataSource;
+  public assetUrl = environment.assetUrl;
 
   public data = {
     type: null,
@@ -56,25 +58,29 @@ export class ContentComponent implements AfterViewInit {
         // this.projectIdChanged$.next(this.data.projectId);
         this.route.params.subscribe(params => {
           const name = <string>params['name'];
-          this.schemaService.getType(this.data.projectId, name).subscribe(result => {
-            this.data.type = result;
+          this.schemaService
+            .getType(this.data.projectId, name)
+            .subscribe(result => {
+              this.data.type = result;
 
-            this.displayedColumns = [];
-            for (let key in this.data.type.fields) {
-              const field = this.data.type.fields[key];
-              if (field.type !== 'BIG_TEXT') {
-                this.displayedColumns.push(field.name);
+              this.displayedColumns = [];
+              for (let key in this.data.type.fields) {
+                const field = this.data.type.fields[key];
+                if (field.type !== 'BIG_TEXT') {
+                  this.displayedColumns.push(field.name);
+                }
               }
-            }
-            this.typeChanged$.next(result);
-          });
+              this.typeChanged$.next(result);
+            });
         });
       })
     );
   }
 
   onAddContent() {
-    this.contentService.create(this.data.projectId, this.data.type.name).subscribe();
+    this.contentService
+      .create(this.data.projectId, this.data.type.name)
+      .subscribe();
   }
 }
 
@@ -94,7 +100,10 @@ export class UniversalDataSource extends DataSource<any> {
     return Observable.merge(...dataChanges).pipe(
       flatMap(() => {
         if (this.data.type && this.data.projectId) {
-          const result = this.contentService.getAll(this.data.type.name, this.data.projectId);
+          const result = this.contentService.getAll(
+            this.data.type.name,
+            this.data.projectId
+          );
           return result;
         }
       })

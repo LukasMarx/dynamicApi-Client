@@ -14,6 +14,7 @@ import {
 } from '@angular/material';
 import { ShortenerPipe } from './shortener.pipe';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from './date.pipe';
 
 @NgModule({
   imports: [
@@ -28,9 +29,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     FormsModule
   ],
-  declarations: [ContentComponent,
-    ShortenerPipe
-],
+  declarations: [ContentComponent, ShortenerPipe, DatePipe],
   providers: [ContentService]
 })
 export class ContentModule {}
