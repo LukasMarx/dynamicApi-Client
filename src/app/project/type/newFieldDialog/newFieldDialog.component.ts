@@ -35,7 +35,7 @@ export class NewFieldDialogComponent implements OnInit {
     }
   ];
 
-  private field = {};
+  public field: any = {};
 
   ngOnInit() {}
 

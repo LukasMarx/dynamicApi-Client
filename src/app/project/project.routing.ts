@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: './assets/assets.module#AssetsModule'
       },
       {
+        path: 'authProvider',
+        loadChildren:
+          './authenticationProvider/authenticationProvider.module#AuthenticationProviderModule'
+      },
+      {
         path: 'settings',
         loadChildren: './settings/settings.module#SettingsModule'
       }

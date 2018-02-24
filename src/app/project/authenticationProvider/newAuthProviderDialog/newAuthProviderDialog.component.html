@@ -1,0 +1,57 @@
+<h2 mat-dialog-title>Create a new Authentication Provider</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="result.name">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-select [(value)]="result.targetType" (selectionChange)="onTypeChanged($event)">
+      <mat-option *ngFor="let type of types" [value]="type.name">{{type.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-select [(value)]="result.cloudProvider">
+      <mat-option value="MICROSOFT">Microsoft</mat-option>
+      <mat-option value="GOOGLE">Google</mat-option>
+      <mat-option value="GITHUB">GitHub</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="ClientId" [(ngModel)]="result.clientId">
+  </mat-form-field>
+  <h3>Mapping</h3>
+  <p>The Authentication-Provider will be saving some data in your objects. Which fields should be used?</p>
+  <span>Cloud Provider</span>
+  <mat-form-field>
+    <mat-select [(value)]="result.mappings.cloudProvider">
+      <mat-option *ngFor="let field of selectedType.fields" [value]="field.name">{{field.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <span>User-ID</span>
+  <mat-form-field>
+    <mat-select [(value)]="result.mappings.userId">
+      <mat-option *ngFor="let field of selectedType.fields" [value]="field.name">{{field.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <span>Display Name</span>
+  <mat-form-field>
+    <mat-select [(value)]="result.mappings.name">
+      <mat-option *ngFor="let field of selectedType.fields" [value]="field.name">{{field.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <span>Picture Url</span>
+  <mat-form-field>
+    <mat-select [(value)]="result.mappings.pictureUrl">
+      <mat-option *ngFor="let field of selectedType.fields" [value]="field.name">{{field.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-raised-button color="primary" (click)="closeDialog()">OK</button>
+</mat-dialog-actions>
