@@ -10,6 +10,7 @@ const getAllTyesQuery = gql`
       name
       fields {
         name
+        visibility
       }
     }
   }
@@ -24,6 +25,7 @@ const getTypeQuery = gql`
         type
         displayGroup
         fullPage
+        visibility
       }
       permissions {
         read
@@ -65,7 +67,10 @@ export class SchemaService {
 
   getType(projectId: string, name: string) {
     return this.apollo
-      .watchQuery({ query: getTypeQuery, variables: { projectId: projectId, name: name } })
+      .watchQuery({
+        query: getTypeQuery,
+        variables: { projectId: projectId, name: name }
+      })
       .valueChanges.pipe(
         map(x => {
           const input = x.data['type'];
@@ -112,6 +117,7 @@ export class SchemaService {
             fields {
               name
               type
+              visibility
             }
           }
         }
@@ -123,7 +129,11 @@ export class SchemaService {
           variables: { projectId: projectId }
         });
         (<any>data).types.push(createType);
-        store.writeQuery({ query: getAllTyesQuery, variables: { projectId: projectId }, data });
+        store.writeQuery({
+          query: getAllTyesQuery,
+          variables: { projectId: projectId },
+          data
+        });
       }
     });
   }
@@ -137,7 +147,11 @@ export class SchemaService {
 
     return this.apollo.mutate({
       mutation: gql`
-        mutation MutationType($projectId: String!, $name: String!, $type: TypeInput!) {
+        mutation MutationType(
+          $projectId: String!
+          $name: String!
+          $type: TypeInput!
+        ) {
           updateType(projectId: $projectId, name: $name, type: $type) {
             name
             fields {
@@ -145,6 +159,7 @@ export class SchemaService {
               type
               fullPage
               displayGroup
+              visibility
             }
           }
         }
@@ -193,8 +208,14 @@ export class SchemaService {
           variables: { projectId: projectId }
         });
         if ((<any>data).types)
-          (<any>data).types = (<any>data).types.filter(x => x.name != removeType);
-        store.writeQuery({ query: getAllTyesQuery, variables: { projectId: projectId }, data });
+          (<any>data).types = (<any>data).types.filter(
+            x => x.name != removeType
+          );
+        store.writeQuery({
+          query: getAllTyesQuery,
+          variables: { projectId: projectId },
+          data
+        });
       }
     });
   }

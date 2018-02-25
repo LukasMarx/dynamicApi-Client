@@ -63,7 +63,10 @@ export class TypeComponent implements OnInit {
   }
 
   onAddField() {
-    const dialogRef = this.dialog.open(NewFieldDialogComponent, { width: '50%', height: '50%' });
+    const dialogRef = this.dialog.open(NewFieldDialogComponent, {
+      width: '50%',
+      height: '50%'
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (!this.workingCopy.fields) this.workingCopy.fields = {};
@@ -93,9 +96,11 @@ export class TypeComponent implements OnInit {
       delete copy.permissions[key].__typename;
     }
 
-    this.schemaService.updateType(this.projectId, copy.name, copy).subscribe(() => {
-      this.unsavedChanges = false;
-    });
+    this.schemaService
+      .updateType(this.projectId, copy.name, copy)
+      .subscribe(() => {
+        this.unsavedChanges = false;
+      });
   }
 
   onEditField(field) {
@@ -105,13 +110,10 @@ export class TypeComponent implements OnInit {
       height: '50%',
       data: { field: field }
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     this.schemaService
-    //       .addFieldToType(this.projectId, this.type.name, { name: result, type: 'STRING' })
-    //       .subscribe();
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      this.workingCopy.fields[field.name] = result;
+      this.unsavedChanges = true;
+    });
   }
 
   onRemoveField(field) {
@@ -127,7 +129,9 @@ export class TypeComponent implements OnInit {
     });
 
     delete type.__typename;
-    this.schemaService.updateType(this.projectId, this.type.name, type).subscribe();
+    this.schemaService
+      .updateType(this.projectId, this.type.name, type)
+      .subscribe();
   }
 
   onPermissionsChanged() {

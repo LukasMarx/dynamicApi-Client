@@ -19,6 +19,19 @@
       <mat-icon color="warning">info</mat-icon>
     </section>
 
+    <section>
+      <mat-form-field>
+        <mat-select placeholder="Visibility" [(ngModel)]="field.visibility">
+          <mat-option value="0">Anyone</mat-option>
+          <mat-option value="1">Auth Key</mat-option>
+          <mat-option value="2">User</mat-option>
+          <mat-option value="3">Owner</mat-option>
+          <mat-option value="4">Admin</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-icon color="warning">info</mat-icon>
+    </section>
+
     <span class="section-title">Metadata</span>
     <mat-divider></mat-divider>
     <mat-form-field class="full-width">

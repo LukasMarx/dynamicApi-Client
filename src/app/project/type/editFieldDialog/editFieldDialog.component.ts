@@ -35,7 +35,7 @@ export class EditFieldDialogComponent implements OnInit {
     }
   ];
 
-  private field;
+  public field;
 
   ngOnInit() {
     this.field = JSON.parse(JSON.stringify(this.data.field));
