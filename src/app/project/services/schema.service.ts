@@ -3,6 +3,7 @@ import { Apollo } from 'apollo-angular';
 import { map } from 'rxjs/operators';
 import gql from 'graphql-tag';
 import { Type } from '../../models/type';
+import { Observable } from 'rxjs/Observable';
 
 const getAllTyesQuery = gql`
   query Root($projectId: String!) {
@@ -20,6 +21,7 @@ const getTypeQuery = gql`
   query Root($projectId: String!, $name: String!) {
     type(projectId: $projectId, name: $name) {
       name
+      requiresPublication
       fields {
         name
         type
@@ -65,16 +67,24 @@ export class SchemaService {
       );
   }
 
-  getType(projectId: string, name: string) {
+  getType(projectId: string, name: string): Observable<Type> {
     return this.apollo
       .watchQuery({
         query: getTypeQuery,
         variables: { projectId: projectId, name: name }
       })
-      .valueChanges.pipe(
+      .valueChanges.pipe<Type>(
         map(x => {
           const input = x.data['type'];
           const output = JSON.parse(JSON.stringify(input));
+
+          output.fields = {};
+          if (input.fields) {
+            for (let field of input.fields) {
+              output.fields[field.name] = field;
+            }
+          }
+
           output.permissions = {};
           if (input.permissions) {
             for (let per of input.permissions) {
@@ -85,25 +95,6 @@ export class SchemaService {
         })
       );
   }
-
-  // addFieldToType(projectId: string, typeName: string, field: any) {
-  //   return this.apollo.mutate({
-  //     mutation: addFieldToTypeQuery,
-  //     variables: { projectId: projectId, typeName: typeName, field: field },
-  //     update: (store, { data: { addField } }) => {
-  //       const data = store.readQuery({
-  //         query: getTypeQuery,
-  //         variables: { projectId: projectId, name: typeName }
-  //       });
-  //       (<any>data).type.fields.push(addField);
-  //       store.writeQuery({
-  //         query: getTypeQuery,
-  //         data,
-  //         variables: { projectId: projectId, name: typeName }
-  //       });
-  //     }
-  //   });
-  // }
 
   addType(projectId: string, name: string) {
     const type = new Type();
@@ -147,13 +138,10 @@ export class SchemaService {
 
     return this.apollo.mutate({
       mutation: gql`
-        mutation MutationType(
-          $projectId: String!
-          $name: String!
-          $type: TypeInput!
-        ) {
+        mutation MutationType($projectId: String!, $name: String!, $type: TypeInput!) {
           updateType(projectId: $projectId, name: $name, type: $type) {
             name
+            requiresPublication
             fields {
               name
               type
@@ -207,10 +195,7 @@ export class SchemaService {
           query: getAllTyesQuery,
           variables: { projectId: projectId }
         });
-        if ((<any>data).types)
-          (<any>data).types = (<any>data).types.filter(
-            x => x.name != removeType
-          );
+        if ((<any>data).types) (<any>data).types = (<any>data).types.filter(x => x.name != removeType);
         store.writeQuery({
           query: getAllTyesQuery,
           variables: { projectId: projectId },

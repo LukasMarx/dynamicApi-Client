@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { SchemaService } from '../../services/schema.service';
 
 @Component({
   selector: 'app-newFieldDialog',
@@ -9,8 +10,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class NewFieldDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<NewFieldDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private typeService: SchemaService
+  ) { }
 
   types = [
     {
@@ -37,7 +39,13 @@ export class NewFieldDialogComponent implements OnInit {
 
   public field: any = {};
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.typeService.getAllTypes(this.data.projectId).subscribe(types => {
+      types.forEach(type => {
+        this.types.push({ name: type.name, value: type.name });
+      });
+    })
+  }
 
   closeDialog() {
     this.dialogRef.close(this.field);

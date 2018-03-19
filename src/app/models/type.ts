@@ -14,4 +14,5 @@ export class Type {
   name: string;
   fields: { [key: string]: Field };
   permissions: { [key: string]: CRUDPermission };
+  requiresPublication: boolean;
 }

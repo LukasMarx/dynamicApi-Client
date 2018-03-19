@@ -21,7 +21,6 @@ export class SettingsComponent implements OnInit {
 
   generateKey() {
     this.keyService.getKey(this.projectId).subscribe(value => {
-      console.log(value);
       this.authKey = value;
     });
   }

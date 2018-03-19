@@ -14,7 +14,8 @@ import {
   MatInputModule,
   MatSnackBarModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSelectModule
 } from '@angular/material';
 import { ContentService } from '../services/content.service';
 import { EditorComponent } from './editor/index';
@@ -38,14 +39,10 @@ import { ImagePickerComponent } from './modals/imagePicker/imagePicker.component
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
     ModalModule
   ],
-  declarations: [
-    ContentDetailComponent,
-    EditorComponent,
-    AssetPickerComponent,
-    AssetPickerDialogComponent
-  ],
+  declarations: [ContentDetailComponent, EditorComponent, AssetPickerComponent, AssetPickerDialogComponent],
   providers: [ContentService],
   entryComponents: [AssetPickerDialogComponent, LangPickerComponent, ImagePickerComponent]
 })

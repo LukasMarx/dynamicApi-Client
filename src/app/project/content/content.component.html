@@ -9,24 +9,25 @@
   </button>
 </mat-toolbar>
 
-<mat-table #table matSort [dataSource]="dataSource">
+<mat-table #table [dataSource]="dataSource">
 
   <ng-container *ngFor="let field of data?.type?.fields | values" matColumnDef="{{field.name}}">
-
-
-    <ng-container *ngIf="field.type == 'DATE'">
-      <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element[field.name] | date}} </mat-cell>
-    </ng-container>
-    <ng-container *ngIf="field.type == 'ASSET'">
-      <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <img style="width:100px" *ngIf="element[field.name]" [src]="assetUrl +'/'+ data.projectId + '/asset/' + element[field.name] +'/webp/200'">
-      </mat-cell>
-    </ng-container>
-    <ng-container *ngIf="field.type == 'STRING'">
-      <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element[field.name] | shortener: 100}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="'DATE'">
+        <mat-cell *matCellDef="let element"> {{element[field.name] | date}} </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchCase="'ASSET'">
+        <mat-cell *matCellDef="let element">
+          <img style="width:100px" *ngIf="element[field.name]" [src]="assetUrl +'/'+ data.projectId + '/asset/' + element[field.name] +'/webp/200'">
+        </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchCase="'STRING'">
+        <mat-cell *matCellDef="let element"> {{element[field.name] | shortener: 100}} </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <mat-cell *matCellDef="let element"> External </mat-cell>
+      </ng-container>
     </ng-container>
   </ng-container>
 

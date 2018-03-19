@@ -33,20 +33,11 @@ export class ContentComponent implements AfterViewInit {
   private typeChanged$: Subject<Type>;
   private projectIdChanged$: Subject<string>;
 
-  constructor(
-    private schemaService: SchemaService,
-    private route: ActivatedRoute,
-    private contentService: ContentService
-  ) {
+  constructor(private schemaService: SchemaService, private route: ActivatedRoute, private contentService: ContentService) {
     this.projectIdChanged$ = new Subject<string>();
     this.typeChanged$ = new Subject<Type>();
     if (!this.dataSource) {
-      this.dataSource = new UniversalDataSource(
-        this.contentService,
-        this.typeChanged$,
-        this.projectIdChanged$,
-        this.data
-      );
+      this.dataSource = new UniversalDataSource(this.contentService, this.typeChanged$, this.projectIdChanged$, this.data);
     }
     //this.dataSource.connect();
   }
@@ -58,29 +49,26 @@ export class ContentComponent implements AfterViewInit {
         // this.projectIdChanged$.next(this.data.projectId);
         this.route.params.subscribe(params => {
           const name = <string>params['name'];
-          this.schemaService
-            .getType(this.data.projectId, name)
-            .subscribe(result => {
-              this.data.type = result;
+          this.schemaService.getType(this.data.projectId, name).subscribe(result => {
+            console.log(result);
+            this.data.type = result;
 
-              this.displayedColumns = [];
-              for (let key in this.data.type.fields) {
-                const field = this.data.type.fields[key];
-                if (field.type !== 'BIG_TEXT') {
-                  this.displayedColumns.push(field.name);
-                }
+            this.displayedColumns = [];
+            for (let key in this.data.type.fields) {
+              const field = this.data.type.fields[key];
+              if (field.type !== 'BIG_TEXT') {
+                this.displayedColumns.push(field.name);
               }
-              this.typeChanged$.next(result);
-            });
+            }
+            this.typeChanged$.next(result);
+          });
         });
       })
     );
   }
 
   onAddContent() {
-    this.contentService
-      .create(this.data.projectId, this.data.type.name)
-      .subscribe();
+    this.contentService.create(this.data.projectId, this.data.type.name).subscribe();
   }
 }
 
@@ -100,10 +88,9 @@ export class UniversalDataSource extends DataSource<any> {
     return Observable.merge(...dataChanges).pipe(
       flatMap(() => {
         if (this.data.type && this.data.projectId) {
-          const result = this.contentService.getAll(
-            this.data.type.name,
-            this.data.projectId
-          );
+          const result = this.contentService.getAll(this.data.type.name, this.data.projectId);
+
+          result.subscribe(console.log);
           return result;
         }
       })

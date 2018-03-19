@@ -31,6 +31,8 @@
     </mat-tab>
     <mat-tab label="Authorization" fxFlex fxFlex fxLayout="row">
       <div fxFlex>
+        Requires Publication
+        <mat-checkbox *ngIf="workingCopy" [(ngModel)]="workingCopy.requiresPublication" (ngModelChange)="onPublicationChanged()"></mat-checkbox>
         <table id="table" style="width:100%">
           <tr>
             <th>Authentication</th>

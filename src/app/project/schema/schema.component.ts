@@ -11,11 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./schema.component.css']
 })
 export class SchemaComponent implements OnInit {
-  constructor(
-    private schemaService: SchemaService,
-    private dialog: MatDialog,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private schemaService: SchemaService, private dialog: MatDialog, private route: ActivatedRoute) {}
 
   types = [];
   private projectId: string;
@@ -24,7 +20,6 @@ export class SchemaComponent implements OnInit {
     this.route.parent.parent.params.subscribe(params => {
       this.projectId = params.id;
       this.schemaService.getAllTypes(this.projectId).subscribe(response => {
-        console.log(response);
         this.types = <any>response;
       });
     });

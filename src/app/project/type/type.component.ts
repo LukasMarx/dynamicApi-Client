@@ -26,11 +26,7 @@ export class TypeComponent implements OnInit {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private schemaService: SchemaService,
-    private route: ActivatedRoute,
-    private dialog: MatDialog
-  ) {}
+  constructor(private schemaService: SchemaService, private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.subscriptions.push(
@@ -40,12 +36,7 @@ export class TypeComponent implements OnInit {
           const name = <string>params['name'];
           this.schemaService.getType(this.projectId, name).subscribe(result => {
             this.type = JSON.parse(JSON.stringify(result));
-            this.type.fields = {};
-            if (result.fields) {
-              for (let field of result.fields) {
-                this.type.fields[field.name] = field;
-              }
-            }
+
             this.workingCopy = JSON.parse(JSON.stringify(this.type));
             if (!this.workingCopy.permissions) {
               this.workingCopy.permissions = {};
@@ -64,6 +55,7 @@ export class TypeComponent implements OnInit {
 
   onAddField() {
     const dialogRef = this.dialog.open(NewFieldDialogComponent, {
+      data: { projectId: this.projectId },
       width: '50%',
       height: '50%'
     });
@@ -96,15 +88,12 @@ export class TypeComponent implements OnInit {
       delete copy.permissions[key].__typename;
     }
 
-    this.schemaService
-      .updateType(this.projectId, copy.name, copy)
-      .subscribe(() => {
-        this.unsavedChanges = false;
-      });
+    this.schemaService.updateType(this.projectId, copy.name, copy).subscribe(() => {
+      this.unsavedChanges = false;
+    });
   }
 
   onEditField(field) {
-    console.log(field);
     const dialogRef = this.dialog.open(EditFieldDialogComponent, {
       width: '50%',
       height: '50%',
@@ -117,24 +106,29 @@ export class TypeComponent implements OnInit {
   }
 
   onRemoveField(field) {
-    const type = JSON.parse(JSON.stringify(this.type));
+    const copy = JSON.parse(JSON.stringify(this.type));
 
-    if (!type.fields) type.fields = [];
+    copy.fields = [];
+    for (let key in this.workingCopy.fields) {
+      if (key !== field.name) copy.fields.push(this.workingCopy.fields[key]);
+    }
+    delete copy.__typename;
 
-    let index = type.fields.indexOf(field);
-    type.fields.splice(index, 1);
-
-    type.fields.forEach(field => {
+    for (let field of copy.fields) {
       delete field.__typename;
-    });
+    }
 
-    delete type.__typename;
-    this.schemaService
-      .updateType(this.projectId, this.type.name, type)
-      .subscribe();
+    for (let key in copy.permissions) {
+      delete copy.permissions[key].__typename;
+    }
+    this.schemaService.updateType(this.projectId, this.type.name, copy).subscribe();
   }
 
   onPermissionsChanged() {
+    this.unsavedChanges = true;
+  }
+
+  onPublicationChanged() {
     this.unsavedChanges = true;
   }
 }

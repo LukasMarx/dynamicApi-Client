@@ -14,23 +14,33 @@
   <mat-tab-group fxFlex>
     <mat-tab *ngFor="let group of groups" [label]="group.name" fxFlex fxLayout="row" fxLayoutAlign="space-between stretch">
       <div class="tab-content">
-        <div style="height: 100%; max-height: 100%;" *ngIf=" group.fullPage && group.fields[0]?.type==='BIG_TEXT' " fxFlex fxLayout="column">
-          <editor [projectId]="projectId " [fullDelta]="content[group.fields[0]?.name] " (fullDeltaChange)="onEditorDeltaChanged(group.fields[0]?.name,
-        $event) "></editor>
-        </div>
         <div *ngFor="let field of group.fields ">
-          <mat-form-field *ngIf="field.type=='STRING' ">
-            <input matInput [placeholder]="field.name " [(ngModel)]="content[field.name] ">
-          </mat-form-field>
-          <div class="form-cont " *ngIf="field.type=='ASSET' ">
-            <h4>{{field.name}}</h4>
-            <app-assetPicker [(source)]="content[field.name] " [projectId]="projectId "></app-assetPicker>
-          </div>
-          <mat-form-field *ngIf="field.type=='DATE' ">
-            <input matInput [(ngModel)]="content[field.name] " [matDatepicker]="picker " [placeholder]="field.name ">
-            <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+          <ng-container [ngSwitch]="field.type">
+            <div style="height: 100%; max-height: 100%;" *ngSwitchCase="'BIG_TEXT'" fxFlex fxLayout="column">
+              <editor [projectId]="projectId " [fullDelta]="content[group.fields[0]?.name] " (fullDeltaChange)="onEditorDeltaChanged(field.name,
+              $event) "></editor>
+            </div>
+            <mat-form-field *ngSwitchCase="'STRING'">
+              <input matInput [placeholder]="field.name " [(ngModel)]="content[field.name] ">
+            </mat-form-field>
+            <div class="form-cont " *ngSwitchCase="'ASSET'">
+              <h4>{{field.name}}</h4>
+              <app-assetPicker [(source)]="content[field.name] " [projectId]="projectId "></app-assetPicker>
+            </div>
+            <mat-form-field *ngSwitchCase="'DATE'">
+              <input matInput [(ngModel)]="content[field.name] " [matDatepicker]="picker " [placeholder]="field.name ">
+              <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div *ngSwitchDefault>
+              <mat-select *ngIf="content[field.name]" [placeholder]="field.name" [(ngModel)]="content[field.name].id">
+                <mat-option *ngFor="let value of (externalTypeContent[field.name]| async)" [value]="value.id">
+                  {{value.name}}
+                </mat-option>
+              </mat-select>
+            </div>
+
+          </ng-container>
         </div>
       </div>
     </mat-tab>
