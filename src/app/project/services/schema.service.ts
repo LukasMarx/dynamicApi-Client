@@ -12,6 +12,7 @@ const getAllTyesQuery = gql`
       fields {
         name
         visibility
+        list
       }
     }
   }
@@ -28,6 +29,7 @@ const getTypeQuery = gql`
         displayGroup
         fullPage
         visibility
+        list
       }
       permissions {
         read
@@ -109,6 +111,7 @@ export class SchemaService {
               name
               type
               visibility
+              list
             }
           }
         }
@@ -148,6 +151,7 @@ export class SchemaService {
               fullPage
               displayGroup
               visibility
+              list
             }
           }
         }

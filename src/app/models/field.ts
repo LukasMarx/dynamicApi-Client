@@ -8,4 +8,5 @@ export interface Field {
   fullPage: boolean;
 
   unique: boolean;
+  list: boolean;
 }

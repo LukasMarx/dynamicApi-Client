@@ -78,15 +78,6 @@ export class TypeComponent implements OnInit {
     for (let key in this.workingCopy.fields) {
       copy.fields.push(this.workingCopy.fields[key]);
     }
-    delete copy.__typename;
-
-    for (let field of copy.fields) {
-      delete field.__typename;
-    }
-
-    for (let key in copy.permissions) {
-      delete copy.permissions[key].__typename;
-    }
 
     this.schemaService.updateType(this.projectId, copy.name, copy).subscribe(() => {
       this.unsavedChanges = false;
@@ -112,15 +103,7 @@ export class TypeComponent implements OnInit {
     for (let key in this.workingCopy.fields) {
       if (key !== field.name) copy.fields.push(this.workingCopy.fields[key]);
     }
-    delete copy.__typename;
 
-    for (let field of copy.fields) {
-      delete field.__typename;
-    }
-
-    for (let key in copy.permissions) {
-      delete copy.permissions[key].__typename;
-    }
     this.schemaService.updateType(this.projectId, this.type.name, copy).subscribe();
   }
 

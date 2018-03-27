@@ -15,7 +15,8 @@ import {
   MatSnackBarModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCardModule
 } from '@angular/material';
 import { ContentService } from '../services/content.service';
 import { EditorComponent } from './editor/index';
@@ -23,13 +24,16 @@ import { FormsModule } from '@angular/forms';
 import { AssetPickerDialogComponent } from '../components/assetPicker/assetPickerDialog/assetPickerDialog.component';
 import { LangPickerComponent } from './modals/langPicker/langPicker.component';
 import { ImagePickerComponent } from './modals/imagePicker/imagePicker.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     ContentDetailRoutes,
     MatToolbarModule,
     MatIconModule,
+    MatCardModule,
     MatButtonModule,
     FlexLayoutModule,
     MatTabsModule,

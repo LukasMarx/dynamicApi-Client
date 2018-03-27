@@ -21,11 +21,12 @@ import {
 import { NewFieldDialogComponent } from './newFieldDialog/newFieldDialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { EditFieldDialogComponent } from './editFieldDialog/editFieldDialog.component';
-import { PipesModule } from '../pipes/pipes.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     TypeRoutes,
     MatIconModule,
     MatGridListModule,
@@ -42,8 +43,7 @@ import { PipesModule } from '../pipes/pipes.module';
     MatSelectModule,
     MatListModule,
     MatTableModule,
-    MatCheckboxModule,
-    PipesModule
+    MatCheckboxModule
   ],
   declarations: [TypeComponent, NewFieldDialogComponent, EditFieldDialogComponent],
   entryComponents: [NewFieldDialogComponent, EditFieldDialogComponent]

@@ -27,25 +27,26 @@ export class ContentService {
   getAllQueries = {};
   getByIdQueries = {};
 
-  getAll(typeName: string, projectId: string) {
+  getAll(typeName: string, projectId: string, skip?: number, limit?: number) {
     return Observable.create(observer => {
       this.schemaService.getType(projectId, typeName).subscribe(type => {
         if (type) {
-          let query = 'query ($projectId: String!){' + type.name + 's (projectId: $projectId){';
+          let query = 'query ($projectId: String!, $skip: Int, $limit: Int){' + type.name + 's (projectId: $projectId, skip:$skip, limit: $limit){';
+          query += 'totalCount\n edges { cursor\n node {';
           query += 'id\n';
           for (let fieldKey in type.fields) {
             if (!this.isFieldCustomTyped(type.fields[fieldKey])) {
               query += type.fields[fieldKey].name + '\n';
             }
           }
-          query += '}}';
+          query += '}}}}';
 
           this.getAllQueries[typeName] = gql([query]);
           this.apollo
             .use('content')
             .watchQuery({
               query: gql([query]),
-              variables: { projectId: projectId }
+              variables: { projectId: projectId, skip: skip || 0, limit: limit || 0 }
             })
             .valueChanges.pipe(
               map(x => {
@@ -72,9 +73,18 @@ export class ContentService {
                 .pipe(first())
                 .toPromise();
               mutation += type.fields[fieldKey].name;
+
               mutation += '{';
+              if (type.fields[fieldKey].list) {
+                mutation += 'totalCount\n edges { cursor\n node {';
+              }
               for (let subKey in subType.fields) {
-                mutation += subType.fields[subKey].name + '\n';
+                if (!this.isFieldCustomTyped(subType.fields[subKey])) {
+                  mutation += subType.fields[subKey].name + '\n';
+                }
+              }
+              if (type.fields[fieldKey].list) {
+                mutation += '}}';
               }
               mutation += '}';
             } else {
@@ -119,7 +129,7 @@ export class ContentService {
     return Observable.create(observer => {
       this.schemaService.getType(projectId, typeName).subscribe(async type => {
         if (type) {
-          let query = 'query ($projectId: String!, $id: String!){' + type.name + '(projectId: $projectId, id: $id) {';
+          let query = 'query ($projectId: String!, $filter: [FilterInput]!){' + type.name + '(projectId: $projectId, filter: $filter) {';
           query += 'id\n';
           for (let fieldKey in type.fields) {
             if (this.isFieldCustomTyped(type.fields[fieldKey])) {
@@ -129,8 +139,16 @@ export class ContentService {
                 .toPromise();
               query += type.fields[fieldKey].name;
               query += '{';
+              if (type.fields[fieldKey].list) {
+                query += 'totalCount\n edges { cursor\n node {';
+              }
               for (let subKey in subType.fields) {
-                query += subType.fields[subKey].name + '\n';
+                if (!this.isFieldCustomTyped(subType.fields[subKey])) {
+                  query += subType.fields[subKey].name + '\n';
+                }
+              }
+              if (type.fields[fieldKey].list) {
+                query += '}}';
               }
               query += '}';
             } else {
@@ -144,7 +162,7 @@ export class ContentService {
             .use('content')
             .watchQuery({
               query: gql([query]),
-              variables: { projectId: projectId, id: id }
+              variables: { projectId: projectId, filter: [{ field: 'id', value: id }] }
             })
             .valueChanges.pipe(
               map(x => {
@@ -176,7 +194,9 @@ export class ContentService {
               mutation += type.fields[fieldKey].name;
               mutation += '{';
               for (let subKey in subType.fields) {
-                mutation += subType.fields[subKey].name + '\n';
+                if (!this.isFieldCustomTyped(subType.fields[subKey])) {
+                  mutation += subType.fields[subKey].name + '\n';
+                }
               }
               mutation += '}';
             } else {
@@ -216,7 +236,22 @@ export class ContentService {
     });
   }
 
+  assign(projectId: string, parentTypeName: string, fieldName: string, assignments: { parent: string; child: string }[]) {
+    return this.apollo.use('content').mutate({
+      mutation: gql`mutation ($projectId: String!, $assignments: [Assignment]){ assign${fieldName}To${parentTypeName}(projectId: $projectId, assignments: $assignments){id}}`,
+      variables: { assignments: assignments, projectId: projectId }
+    });
+  }
+
+  deassign(projectId: string, parentTypeName: string, fieldName: string, assignments: { parent: string; child: string }[]) {
+    return this.apollo.use('content').mutate({
+      mutation: gql`mutation ($projectId: String!, $assignments: [Assignment]){ deassign${fieldName}From${parentTypeName}(projectId: $projectId, assignments: $assignments){id}}`,
+      variables: { assignments: assignments, projectId: projectId }
+    });
+  }
+
   isFieldCustomTyped(field: Field) {
+    if (!field) return false;
     if (typeMap[field.type]) {
       return false;
     }

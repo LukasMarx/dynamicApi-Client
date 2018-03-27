@@ -11,10 +11,7 @@ export class AssetUploadDialogComponent implements OnInit {
 
   files: Set<File> = new Set();
 
-  constructor(
-    public dialogRef: MatDialogRef<AssetUploadDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  constructor(public dialogRef: MatDialogRef<AssetUploadDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   onClick() {
     this.file.nativeElement.click();
@@ -29,7 +26,6 @@ export class AssetUploadDialogComponent implements OnInit {
         this.files.add(files[key]);
       }
     }
-    console.log(this.files);
   }
 
   closeDialog() {

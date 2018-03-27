@@ -1,0 +1,35 @@
+<mat-table [dataSource]="dataSource">
+
+  <ng-container matColumnDef="select" *ngIf="select">
+    <mat-header-cell *matHeaderCellDef>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let edge">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="checkBoxChange($event, edge)" [checked]="isRowSelected(edge)">
+      </mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container *ngFor="let field of type?.fields | values" matColumnDef="{{field.name}}">
+    <mat-header-cell *matHeaderCellDef> {{field.name}} </mat-header-cell>
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="'DATE'">
+        <mat-cell *matCellDef="let edge"> {{edge.node[field.name] | date}} </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchCase="'ASSET'">
+        <mat-cell *matCellDef="let edge">
+          <img style="width:100px" *ngIf="edge.node[field.name]" [src]="assetUrl +'/'+ projectId + '/asset/' + edge.node[field.name] +'/webp/200'">
+        </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchCase="'STRING'">
+        <mat-cell *matCellDef="let edge"> {{edge.node[field.name] | shortener: 100}} </mat-cell>
+      </ng-container>
+      <ng-container *ngSwitchDefault>
+        <mat-cell *matCellDef="let edge"> External </mat-cell>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="rowClick.emit(row)"></mat-row>
+</mat-table>
+<mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+</mat-paginator>

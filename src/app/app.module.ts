@@ -17,6 +17,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProjectService } from './services/project.service';
 import { setContext } from 'apollo-link-context';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ApolloLink } from 'apollo-link';
 
 @NgModule({
   declarations: [AppComponent],
@@ -58,16 +59,30 @@ export class AppModule {
     });
 
     apollo.create({
-      link: auth.concat(http),
+      link: ApolloLink.from([createOmitTypenameLink(), auth, http]),
       cache: new InMemoryCache()
     });
 
     apollo.create(
       {
-        link: auth.concat(http2),
+        link: ApolloLink.from([createOmitTypenameLink(), auth, http2]),
         cache: new InMemoryCache()
       },
       'content'
     );
   }
+}
+
+function createOmitTypenameLink() {
+  return new ApolloLink((operation, forward) => {
+    if (operation.variables) {
+      operation.variables = JSON.parse(JSON.stringify(operation.variables), omitTypename);
+    }
+
+    return forward(operation);
+  });
+}
+
+function omitTypename(key, value) {
+  return key === '__typename' ? undefined : value;
 }

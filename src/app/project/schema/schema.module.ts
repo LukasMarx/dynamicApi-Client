@@ -15,10 +15,12 @@ import { MatListModule } from '@angular/material';
 import { NewTypeDialogComponent } from './newTypeDialog/newTypeDialog.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     FormsModule,
     ApolloModule,
     MatGridListModule,

@@ -9,7 +9,6 @@ export class ValuesPipe implements PipeTransform {
     for (let key in value) {
       values.push(value[key]);
     }
-    console.log(values);
     return values;
   }
 }

@@ -19,9 +19,8 @@
 }
 
 .tab-content {
-  padding: 16px;
   flex: 1;
-  flex-flow: column nowrap;
+
   height: 100%;
 }
 
@@ -35,4 +34,8 @@ editor {
   display: flex;
   flex-direction: column;
   display: flex;
+}
+
+.flex {
+  flex: 1;
 }

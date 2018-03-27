@@ -8,15 +8,7 @@ const ATTRIBUTES = ['alt', 'height', 'width'];
 
 export class Picture extends IMG {
   static create(value) {
-    const node = super.create(
-      environment.assetUrl +
-        '/' +
-        projectService.projectId +
-        '/asset/' +
-        value +
-        '/webp'
-    );
-    console.log(value);
+    const node = super.create(environment.assetUrl + '/' + projectService.projectId + '/asset/' + value + '/webp');
     node.setAttribute('raw', value);
     return node;
   }
