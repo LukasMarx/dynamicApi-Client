@@ -4,6 +4,7 @@ import { AssetService } from './../services/asset.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AssetUploadDialogComponent } from './assetUploadDialog/assetUploadDialog.component';
+import { Asset } from '../../models/asset';
 
 @Component({
   selector: 'app-assets',
@@ -11,11 +12,9 @@ import { AssetUploadDialogComponent } from './assetUploadDialog/assetUploadDialo
   styleUrls: ['./assets.component.css']
 })
 export class AssetsComponent implements OnInit {
-  constructor(
-    private dialog: MatDialog,
-    private assetService: AssetService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private dialog: MatDialog, private assetService: AssetService, private route: ActivatedRoute) {}
+
+  delete = false;
 
   baseUrl = environment.assetUrl;
   assets$;
@@ -34,5 +33,9 @@ export class AssetsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((files: Set<File>) => {
       if (files) this.assetService.insert(this.projectId, files).subscribe();
     });
+  }
+
+  deleteAsset(asset: Asset) {
+    this.assetService.delete(this.projectId, asset.id).subscribe();
   }
 }

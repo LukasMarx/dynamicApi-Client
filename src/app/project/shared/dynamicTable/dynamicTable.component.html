@@ -17,7 +17,7 @@
       </ng-container>
       <ng-container *ngSwitchCase="'ASSET'">
         <mat-cell *matCellDef="let edge">
-          <img style="width:100px" *ngIf="edge.node[field.name]" [src]="assetUrl +'/'+ projectId + '/asset/' + edge.node[field.name] +'/webp/200'">
+          <img style="width:100px;" *ngIf="edge.node[field.name]" [src]="assetUrl +'/'+ projectId + '/asset/' + edge.node[field.name] +'/webp/200'">
         </mat-cell>
       </ng-container>
       <ng-container *ngSwitchCase="'STRING'">

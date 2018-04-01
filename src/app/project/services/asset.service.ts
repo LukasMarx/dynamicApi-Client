@@ -11,6 +11,7 @@ import { Asset } from '../../models/asset';
 const getAllAssetsQuery = gql`
   query Root($projectId: String!) {
     assets(projectId: $projectId) {
+      id
       fileName
       type
       size
@@ -18,14 +19,16 @@ const getAllAssetsQuery = gql`
   }
 `;
 
+const deleteMutation = gql`
+  mutation Root($projectId: String!, $id: String!) {
+    deleteAsset(projectId: $projectId, id: $id)
+  }
+`;
+
 @Injectable()
 export class AssetService {
   url = environment.baseUrl;
-  constructor(
-    private http: HttpClient,
-    private accountService: AccountService,
-    private apollo: Apollo
-  ) {}
+  constructor(private http: HttpClient, private accountService: AccountService, private apollo: Apollo) {}
 
   public insert(projectId: string, files: Set<File>) {
     const headers = new HttpHeaders();
@@ -43,12 +46,37 @@ export class AssetService {
   }
 
   public getAll(projectId: string): Observable<Asset[]> {
-    return this.apollo
-      .watchQuery({ query: getAllAssetsQuery, variables: { projectId: projectId } })
-      .valueChanges.pipe(
-        map(x => {
-          return <Asset[]>x.data['assets'];
-        })
-      );
+    return this.apollo.watchQuery({ query: getAllAssetsQuery, variables: { projectId: projectId } }).valueChanges.pipe(
+      map(x => {
+        return <Asset[]>x.data['assets'];
+      })
+    );
+  }
+
+  public delete(projectId: string, id: string) {
+    return this.apollo.mutate({
+      mutation: deleteMutation,
+      variables: { projectId: projectId, id: id },
+      update: (store, { data: { assets } }) => {
+        const data = store.readQuery({
+          query: getAllAssetsQuery,
+          variables: { projectId: projectId }
+        });
+        let indexToDelete;
+        (<any>data).assets.forEach((asset, index) => {
+          if (asset.id === id) {
+            indexToDelete = index;
+          }
+        });
+        if (indexToDelete) {
+          (<any>data).assets.splice(indexToDelete, 1);
+        }
+        store.writeQuery({
+          query: getAllAssetsQuery,
+          variables: { projectId: projectId },
+          data
+        });
+      }
+    });
   }
 }

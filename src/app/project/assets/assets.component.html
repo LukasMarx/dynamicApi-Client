@@ -1,16 +1,24 @@
 <mat-toolbar color="primary">
   Assets
   <span fxFlex></span>
+  <button mat-button class="icon" (click)="delete = !delete" fxLayout="column" fxLayoutAlign="center end">
+    <mat-icon>delete</mat-icon>
+    Toggle Delete
+  </button>
   <button mat-button class="icon" (click)="onUploadAsset()" fxLayout="column" fxLayoutAlign="center end">
     <mat-icon>cloud_upload</mat-icon>
     Upload Asset
   </button>
+
 </mat-toolbar>
 
 
 <mat-grid-list cols="6" rowHeight="150">
   <mat-grid-tile class="tile" *ngFor="let asset of assets$ | async" fxFlex>
     <mat-card class="card" fxFlex>
+      <button *ngIf="delete" mat-icon-button class="delete-button" (click)="deleteAsset(asset)">
+        <mat-icon aria-label="Example icon-button with a heart icon">cancel</mat-icon>
+      </button>
       <div class="container" fxFlex fxLayout="row" fxLayoutAlign="space-evenly center">
 
         <img class="image" fxFlex [src]="baseUrl+'/'+projectId+'/asset/' + asset.fileName + '/webp/800'" />

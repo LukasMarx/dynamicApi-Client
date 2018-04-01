@@ -1,4 +1,4 @@
-import { environment } from './../../../../../environments/environment.prod';
+import { environment } from './../../../../../environments/environment';
 import { Asset } from './../../../../models/asset';
 import { Component, OnInit, Inject } from '@angular/core';
 import { AssetService } from '../../../services/asset.service';
@@ -11,11 +11,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./imagePicker.component.css']
 })
 export class ImagePickerComponent implements OnInit {
-  constructor(
-    private assetService: AssetService,
-    public dialogRef: MatDialogRef<ImagePickerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  constructor(private assetService: AssetService, public dialogRef: MatDialogRef<ImagePickerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   assetUrl = environment.assetUrl;
 

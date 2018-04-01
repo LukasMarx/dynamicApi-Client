@@ -12,3 +12,9 @@
   padding: 0;
   padding-bottom: 56.25%;
 }
+
+.delete-button {
+  position: absolute;
+  right: 0;
+  z-index: 10000;
+}

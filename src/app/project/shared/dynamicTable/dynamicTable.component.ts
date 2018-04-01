@@ -10,6 +10,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-dynamicTable',
@@ -67,6 +68,7 @@ export class DynamicTableComponent implements OnInit, OnChanges {
   constructor(private contentService: ContentService) {
     this.projectIdChanged = new ReplaySubject<string>();
     this.typeChanged = new ReplaySubject<Type>();
+    this.assetUrl = environment.assetUrl;
   }
 
   ngOnInit() {
