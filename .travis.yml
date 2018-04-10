@@ -14,12 +14,12 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: rsync -r -e "ssh -i do-deployPK" --delete-after --quiet $TRAVIS_BUILD_DIR deploy@165.227.244.57:/var/www --exclude 'node_modules';
+    script: rsync -r -e "ssh -i do-deployPK" --delete-after --quiet $TRAVIS_BUILD_DIR deploy@165.227.244.57:/var/www --exclude 'node_modules'
     on:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: rsync -r -e "ssh -i do-deployPK" --delete-after --quiet $TRAVIS_BUILD_DIR deploy@165.227.244.57:/var/www/dev --exclude 'node_modules';
+    script: rsync -r -e "ssh -i do-deployPK" --delete-after --quiet $TRAVIS_BUILD_DIR deploy@165.227.244.57:/var/www/dev --exclude 'node_modules'
     on:
       branch: dev
 env:
