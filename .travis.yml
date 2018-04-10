@@ -5,7 +5,7 @@ addons:
 script:
 - npm run build
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_f3ed88e737e6_key -iv $encrypted_f3ed88e737e6_iv
+- openssl aes-256-cbc -K $encrypted_af25f1d8c9c1_key -iv $encrypted_af25f1d8c9c1_iv
   -in do-deployPK.enc -out do-deployPK -d
 - mv -fv .travis/ssh-config ~/.ssh/config
 - eval "$(ssh-agent -s)"
@@ -27,9 +27,3 @@ deploy:
 env:
   global:
   - secure: aQvGo+xEUwgb2e0WqwKL4QV2IruEM+Fw/FLydn2+hbmmjLd1HKVZX8ofPsuQW9cHYMKaDoj5mzWSr0vWQ3PUf6RpGyOv9u2os391wpxHGOFgQqvV/O7llVfZ+gvKdVnUszAdVdIpbB//dY6Ok4LDHbdD9F950l7o5YjN7UD9VVsXYU+tAAmyja3cVzjHf0CLT6FlAeJbt0UCDE+5comNnwzW1s5JJI3mzdoRnDkg4S8kafotp4dT/HsU3gnE7e/cswiPNZp1uWmdfzrnZHNaOjat0nv0MtEYei1YnvWSFEGHTRVPjGdRmTo1iXmUd2kAcY6mw8Zf0mO4BIcJLCVPZxOfHn4I6S5oD07A35YGUnBjjOxuHOuFkdEvR1Syh9km8FaGK2gybTv97EujK/dEfe8uqkB8H9UnLoS0T9AEwSETSERN6ucHm5Q6ZALscc8lIM1LCkuthcrfvdmlOhz3QV0XFRofLPcKSarMhZJF7czIBXkQp/BcvrfeyNbxO7r4OupaaaE71NDQcEYGD+SLuvYrPy6tnsiQnTIzz+njsb9RYb2MgoUVbFze1a2PmA4c+08mMfq+Bl7p93PskSqMdPMobLLf2I3Le2pOAK3bfcQsqkIrpQXKqwaUxU0b07DyaFbiLJgcvPljgwLYCJpkaobklWiRVXeV+yGJ+msXQ8U=
-  - secure: Kr3PS4ENT9QRZXzG/5BhoTuRTSHlqBfgqkm4cetDzfxLQvk667ObW3D0kbF+9yN6E5x+mlaqrEj8XK9Ufup2rCDQtOw1CiakhWKiiTCC2m8jXjRskazTqgy/Bzw5AC8VPAv4qn8wPgehUZjtC1rA34m5ZfXrAmAhJq2YldQd/Aqvx4MLW4IjLZsDeiExPx7H5HYYobiflBVFG4sKxweX7FIPgu9HqMTI/7hwta3JL9+9AeiczCKGJbkNh/s4BV3I3XNSBhlizW1i9Kd0aljU6BUthSEfS+T9iYBEcwfNjLF0mfphhoIyUGXHMPIxyFAXVKyHddXQBYHIH13Ur8B/8vkTxuge05HLJ5myThXbVza9zMflASiKKiPs8WSiLtDGg0nhIyYcVhsSMJBptV3Zfvd1CUpiMYaR14Y5TB76/B70ceFhow7eA6wzuYpuGTsSxMuRqEja1rv90NJ8mfwYeV31OBLbyB/ATR+Z8iZB4Spw8qNrG2tvq3E7veivgOnxvANuWUNF5Jp42PyGe0ETf8Wj18IJ7Rfc+JjnNf2rTzyR+lTzxWEaY0I13VolLEyMvL1QP4GdCPxrRCbDIT7BM/funFIk5DL8tW58Mmkwix22isCPIhNue8oAHO86aYAPYDlM/OdZab7/94URZqf9njGKKtsq+FFOZ2yp1EBxEpQ=
-before_install:
-- openssl aes-256-cbc -K $encrypted_af25f1d8c9c1_key -iv $encrypted_af25f1d8c9c1_iv
-  -in do-deployPK.enc -out do-deployPK -d
-- openssl aes-256-cbc -K $encrypted_af25f1d8c9c1_key -iv $encrypted_af25f1d8c9c1_iv
-  -in do-deployPPK.enc -out do-deployPPK -d
