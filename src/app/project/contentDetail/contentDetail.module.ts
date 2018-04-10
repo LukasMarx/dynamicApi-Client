@@ -25,6 +25,7 @@ import { AssetPickerDialogComponent } from '../components/assetPicker/assetPicke
 import { LangPickerComponent } from './modals/langPicker/langPicker.component';
 import { ImagePickerComponent } from './modals/imagePicker/imagePicker.component';
 import { SharedModule } from '../shared/shared.module';
+import { IframePickerComponent } from './modals/iframePicker/iframePicker.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,6 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [ContentDetailComponent, EditorComponent, AssetPickerComponent, AssetPickerDialogComponent],
   providers: [ContentService],
-  entryComponents: [AssetPickerDialogComponent, LangPickerComponent, ImagePickerComponent]
+  entryComponents: [AssetPickerDialogComponent, LangPickerComponent, ImagePickerComponent, IframePickerComponent]
 })
 export class ContentDetailModule {}

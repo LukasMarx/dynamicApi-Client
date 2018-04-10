@@ -13,6 +13,7 @@ import {
 import { LangPickerComponent } from './langPicker/langPicker.component';
 import { ImagePickerComponent } from './imagePicker/imagePicker.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { IframePickerComponent } from './iframePicker/iframePicker.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatGridListModule,
     MatCardModule
   ],
-  declarations: [LangPickerComponent, ImagePickerComponent],
+  declarations: [LangPickerComponent, ImagePickerComponent,
+    IframePickerComponent
+],
   exports: [LangPickerComponent]
 })
 export class ModalModule {}

@@ -5,6 +5,14 @@
   flex-direction: column;
 }
 
+.editor-footer {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  background-color: #673ab7;
+  z-index: 1000000;
+}
+
 .container {
   height: 100%;
 }

@@ -219,9 +219,9 @@ export class ContentDetailComponent implements OnInit {
   }
 
   onReleaseContent() {
-    const clone = JSON.parse(JSON.stringify(this.content));
+    const clone = JSON.parse(JSON.stringify(this.workingCopy));
     clone.public = true;
-    this.content = clone;
+    this.workingCopy = clone;
     this.onSaveContent();
   }
 

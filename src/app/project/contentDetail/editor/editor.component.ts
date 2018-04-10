@@ -1,17 +1,7 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-  PLATFORM_ID,
-  Inject
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Output, EventEmitter, OnChanges, PLATFORM_ID, Inject } from '@angular/core';
 import { MyCodeBlock } from './code-block';
 import { Picture } from './picture';
+import { IFrame } from './iframe';
 
 import * as Quill from 'quill';
 
@@ -22,6 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { LangPickerComponent } from '../modals/langPicker/langPicker.component';
 import { ImagePickerComponent } from '../modals/imagePicker/imagePicker.component';
 import { projectService } from './projectService';
+import { IframePickerComponent } from '../modals/iframePicker/iframePicker.component';
 
 @Component({
   selector: 'editor',
@@ -44,6 +35,7 @@ export class EditorComponent implements OnInit, OnChanges {
     ['bold', 'italic', 'underline', 'strike'],
     ['blockquote', 'my-code-block'],
     ['image', 'video', 'link'],
+    ['i-frame'],
 
     [{ header: 1 }, { header: 2 }],
     [{ list: 'ordered' }, { list: 'bullet' }],
@@ -66,6 +58,10 @@ export class EditorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    const icons = Quill.import('ui/icons');
+    icons['my-code-block'] = '<i class="material-icons editor-icon">code</i>';
+    icons['i-frame'] = '<i class="material-icons editor-icon">picture_in_picture</i>';
+
     projectService.projectId = this.projectId;
     if (this.testBrowser) {
       this.init = false;
@@ -82,6 +78,7 @@ export class EditorComponent implements OnInit, OnChanges {
       // const codeblock = Quill.import('formats/code/codeblock');
 
       Quill.register(MyCodeBlock);
+      Quill.register(IFrame);
       Quill.register(Picture);
       //Quill.register('modules/imageResize', ImageResize);
 
@@ -111,8 +108,7 @@ export class EditorComponent implements OnInit, OnChanges {
           });
 
           dialogRef.afterClosed().subscribe(result => {
-            if (result)
-              this.editor.insertEmbed(range.index, 'image', result, (<any>Quill).sources.USER);
+            if (result) this.editor.insertEmbed(range.index, 'image', result, (<any>Quill).sources.USER);
           });
         } else {
           this.editor.format('link', false);
@@ -136,6 +132,22 @@ export class EditorComponent implements OnInit, OnChanges {
           });
         } else {
           this.editor.format('my-code-block', false);
+        }
+      });
+
+      toolbar.addHandler('i-frame', value => {
+        if (value) {
+          const range = this.editor.getSelection();
+          const dialogRef = this.dialog.open(IframePickerComponent, {
+            data: { projectId: this.projectId }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+            if (result) this.editor.insertEmbed(range.index, 'i-frame', result, (<any>Quill).sources.USER);
+          });
+        } else {
+          this.editor.format('link', false);
         }
       });
 

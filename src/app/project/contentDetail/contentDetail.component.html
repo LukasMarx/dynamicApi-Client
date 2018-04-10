@@ -17,8 +17,11 @@
         <div *ngFor="let field of group.fields" [ngClass]="{'flex': field.fullPage}">
           <ng-container [ngSwitch]="field.type">
             <div style="height: 100%; max-height: 100%;" *ngSwitchCase="'BIG_TEXT'" fxFlex>
-              <editor [projectId]="projectId " [fullDelta]="workingCopy[field.name]" (fullDeltaChange)="onEditorDeltaChanged(field.name,
+              <div fxFlex fxLayout="column">
+                <editor [projectId]="projectId " [fullDelta]="workingCopy[field.name]" (fullDeltaChange)="onEditorDeltaChanged(field.name,
               $event) "></editor>
+
+              </div>
             </div>
             <mat-form-field *ngSwitchCase="'STRING'">
               <input matInput [placeholder]="field.name " [(ngModel)]="workingCopy[field.name] ">
