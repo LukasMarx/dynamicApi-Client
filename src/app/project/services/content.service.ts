@@ -193,10 +193,19 @@ export class ContentService {
                 .toPromise();
               mutation += type.fields[fieldKey].name;
               mutation += '{';
+
+              if (type.fields[fieldKey].list) {
+                mutation += 'nodes {';
+              }
               for (let subKey in subType.fields) {
                 if (!this.isFieldCustomTyped(subType.fields[subKey])) {
+                  console.log(subType.fields[subKey]);
+
                   mutation += subType.fields[subKey].name + '\n';
                 }
+              }
+              if (type.fields[fieldKey].list) {
+                mutation += '}';
               }
               mutation += '}';
             } else {

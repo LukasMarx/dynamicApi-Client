@@ -30,10 +30,10 @@ export class NewAuthProviderDialogComponent implements OnInit {
   }
 
   onTypeChanged(event) {
-    this.schemaService
-      .getType(this.data.projectId, event.value)
-      .subscribe(value => {
-        this.selectedType = value;
-      });
+    this.schemaService.getType(this.data.projectId, event.value).subscribe(value => {
+      console.log(value);
+      value.fields = <any>Object.values(value.fields);
+      this.selectedType = value;
+    });
   }
 }

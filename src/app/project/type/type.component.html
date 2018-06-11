@@ -103,6 +103,46 @@
               <mat-checkbox [(ngModel)]="workingCopy?.permissions.authKey.delete" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
             </td>
           </tr>
+          <tr>
+            <td>
+              <span>User</span>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.user.read" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.user.readAll" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.user.create" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.user.update" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.user.delete" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span>Author</span>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.author.read" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.author.readAll" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.author.create" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.author.update" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+            <td>
+              <mat-checkbox [(ngModel)]="workingCopy?.permissions.author.delete" (ngModelChange)="onPermissionsChanged()"></mat-checkbox>
+            </td>
+          </tr>
         </table>
 
       </div>

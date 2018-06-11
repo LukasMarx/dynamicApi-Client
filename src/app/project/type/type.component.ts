@@ -9,7 +9,7 @@ import { EditFieldDialogComponent } from './editFieldDialog/editFieldDialog.comp
 import { DataSource } from '@angular/cdk/table';
 import { Type, CRUDPermission } from '../../models/type';
 
-const defaultRoles = ['anonymous', 'roAuthKey', 'authKey'];
+const defaultRoles = ['anonymous', 'roAuthKey', 'authKey', 'user', 'author'];
 
 @Component({
   selector: 'app-type',
