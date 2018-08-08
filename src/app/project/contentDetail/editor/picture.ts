@@ -1,4 +1,4 @@
-import { environment } from './../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import * as Quill from 'quill';
 import { projectService } from './projectService';
 

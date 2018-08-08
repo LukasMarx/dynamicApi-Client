@@ -1,5 +1,5 @@
-import { environment } from './../../../../../environments/environment';
-import { Asset } from './../../../../models/asset';
+import { environment } from '../../../../../environments/environment';
+import { Asset } from '../../../../models/asset';
 import { Component, OnInit, Inject } from '@angular/core';
 import { AssetService } from '../../../services/asset.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';

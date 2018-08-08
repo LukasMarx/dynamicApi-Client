@@ -29,8 +29,11 @@ const routes: Routes = [
       },
       {
         path: 'authProvider',
-        loadChildren:
-          './authenticationProvider/authenticationProvider.module#AuthenticationProviderModule'
+        loadChildren: './authenticationProvider/authenticationProvider.module#AuthenticationProviderModule'
+      },
+      {
+        path: 'analytics',
+        loadChildren: './analytics/analytics.module#AnalyticsModule'
       },
       {
         path: 'settings',

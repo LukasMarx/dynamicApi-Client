@@ -1,4 +1,4 @@
-import { environment } from './../environments/environment';
+import { environment } from '../environments/environment';
 import { AccountService } from './services/account.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';

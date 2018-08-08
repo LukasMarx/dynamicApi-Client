@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="chart-wrapper">
+    <ngx-charts-line-chart [results]="data" [scheme]="{domain: ['#673ab7']}" [xAxis]="false" [yAxis]="true" [animations]="false"
+      [showGridLines]="false" [showXAxisLabel]="false">
+    </ngx-charts-line-chart>
+  </div>
+  <br/>
+  <!-- <div *ngFor="let entry of readings | async">
+    <span>{{entry.id}}</span>
+    <span>{{entry.value}}</span>
+
+  </div> -->
+</div>

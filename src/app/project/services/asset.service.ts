@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';

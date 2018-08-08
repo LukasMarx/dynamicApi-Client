@@ -1,4 +1,4 @@
-import { ContentService } from './../services/content.service';
+import { ContentService } from '../services/content.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

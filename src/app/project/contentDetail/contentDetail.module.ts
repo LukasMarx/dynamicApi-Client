@@ -1,5 +1,5 @@
 import { ModalModule } from './modals/modals.module';
-import { AssetPickerComponent } from './../components/assetPicker/assetPicker.component';
+import { AssetPickerComponent } from '../components/assetPicker/assetPicker.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ import {
   MatCardModule
 } from '@angular/material';
 import { ContentService } from '../services/content.service';
-import { EditorComponent } from './editor/index';
+import { EditorComponent } from './editor';
 import { FormsModule } from '@angular/forms';
 import { AssetPickerDialogComponent } from '../components/assetPicker/assetPickerDialog/assetPickerDialog.component';
 import { LangPickerComponent } from './modals/langPicker/langPicker.component';

@@ -1,4 +1,4 @@
-import { ModalModule } from './../modals/modals.module';
+import { ModalModule } from '../modals/modals.module';
 import { FormsModule } from '@angular/forms';
 import { EditorComponent } from './editor.component';
 

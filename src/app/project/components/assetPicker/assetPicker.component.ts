@@ -1,5 +1,5 @@
-import { environment } from './../../../../environments/environment';
-import { Asset } from './../../../models/asset';
+import { environment } from '../../../../environments/environment';
+import { Asset } from '../../../models/asset';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AssetPickerDialogComponent } from './assetPickerDialog/assetPickerDialog.component';

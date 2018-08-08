@@ -1,5 +1,5 @@
-import { ContentService } from './../services/content.service';
-import { SchemaService } from './../services/schema.service';
+import { ContentService } from '../services/content.service';
+import { SchemaService } from '../services/schema.service';
 import { Component, OnInit, group } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';

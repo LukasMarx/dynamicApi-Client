@@ -1,6 +1,6 @@
-import { environment } from './../../../environments/environment.prod';
+import { environment } from '../../../environments/environment.prod';
 import { ActivatedRoute } from '@angular/router';
-import { AssetService } from './../services/asset.service';
+import { AssetService } from '../services/asset.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { AssetUploadDialogComponent } from './assetUploadDialog/assetUploadDialog.component';

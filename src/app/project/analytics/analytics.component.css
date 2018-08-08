@@ -1,0 +1,13 @@
+:host {
+  width: 100%;
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.chart-wrapper {
+  display: block;
+  width: 100%;
+}
