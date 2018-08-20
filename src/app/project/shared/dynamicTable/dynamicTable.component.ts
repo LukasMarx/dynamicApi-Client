@@ -72,6 +72,7 @@ export class DynamicTableComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    
     this.selection = new SelectionModel<string>(this.allowMultiSelect, this.initialSelection);
     if (!this.dataSource) {
       this.dataSource = new UniversalDataSource(this.contentService, this.typeChanged.asObservable(), this.projectIdChanged.asObservable());
@@ -96,7 +97,9 @@ export class DynamicTableComponent implements OnInit, OnChanges {
 
   isRowSelected(row) {
     for (let selected of this.selection.selected) {
-      if (row.node.id === selected.id) return true;
+      if (row.node.id === selected.id){ 
+        return true;
+      }
     }
     return false;
   }

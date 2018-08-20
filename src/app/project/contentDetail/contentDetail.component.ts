@@ -84,6 +84,7 @@ export class ContentDetailComponent implements OnInit {
         }
 
         this.workingCopy = JSON.parse(JSON.stringify(clone));
+        console.log(this.workingCopy)
         this.content = clone;
       });
     });

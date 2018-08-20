@@ -142,6 +142,7 @@ export class ContentService {
               if (type.fields[fieldKey].list) {
                 query += 'totalCount\n edges { cursor\n node {';
               }
+              query+= 'id\n'
               for (let subKey in subType.fields) {
                 if (!this.isFieldCustomTyped(subType.fields[subKey])) {
                   query += subType.fields[subKey].name + '\n';
