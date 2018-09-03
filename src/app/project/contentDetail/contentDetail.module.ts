@@ -16,7 +16,7 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
 } from '@angular/material';
 import { ContentService } from '../services/content.service';
 import { EditorComponent } from './editor';
@@ -26,6 +26,9 @@ import { LangPickerComponent } from './modals/langPicker/langPicker.component';
 import { ImagePickerComponent } from './modals/imagePicker/imagePicker.component';
 import { SharedModule } from '../shared/shared.module';
 import { IframePickerComponent } from './modals/iframePicker/iframePicker.component';
+import { NgxWidgetGridModule } from 'ngx-widget-grid';
+import { WidgetFactoryComponent } from './widget-factory/widget-factory.component';
+import { WidgetDirective } from './widget.directive';
 
 @NgModule({
   imports: [
@@ -45,10 +48,11 @@ import { IframePickerComponent } from './modals/iframePicker/iframePicker.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    ModalModule
+    ModalModule,
+    NgxWidgetGridModule
   ],
-  declarations: [ContentDetailComponent, EditorComponent, AssetPickerComponent, AssetPickerDialogComponent],
+  declarations: [ContentDetailComponent, EditorComponent, AssetPickerComponent, AssetPickerDialogComponent, WidgetFactoryComponent, WidgetDirective],
   providers: [ContentService],
-  entryComponents: [AssetPickerDialogComponent, LangPickerComponent, ImagePickerComponent, IframePickerComponent]
+  entryComponents: [AssetPickerDialogComponent, LangPickerComponent, ImagePickerComponent, IframePickerComponent, EditorComponent]
 })
 export class ContentDetailModule {}

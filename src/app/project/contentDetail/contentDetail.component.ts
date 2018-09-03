@@ -9,6 +9,10 @@ import { Type } from '../../models/type';
 import { Observable } from 'apollo-client/util/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import { map } from 'rxjs/operators';
+import { Widget } from '../../models/widget';
+import { EditorComponent } from './editor';
+import { WidgetService } from '../services/widget.service';
+import { Page } from '../../models/page';
 
 @Component({
   selector: 'app-contentDetail',
@@ -23,27 +27,38 @@ export class ContentDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private contentService: ContentService,
     private snackBar: MatSnackBar,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private widgetService: WidgetService
   ) {}
 
   type;
-
   content = {};
   workingCopy = {};
-
   groups = [];
-
   externalTypes: { [fieldName: string]: Type } = {};
   externalTypeContent = {};
-
   nodes;
-
   id;
+  editGrid= false;
+  pages: Page[];
+
+  widget: Widget = {
+    component: "0-0",
+    left: 1,
+    top: 1,
+    width: 2,
+    height: 3,
+    configuration: ''
+  } 
 
   ngOnInit() {
+    console.log(this.widget)
     combineLatest(this.route.parent.parent.params, this.route.params).subscribe(([parent, child]) => {
       this.projectId = <string>parent['id'];
       const name = <string>child['type'];
+
+      this.widgetService.getAll(this.projectId, name).subscribe(pages => this.pages= pages)
+
       this.id = <string>child['id'];
       if (!this.projectId || !name) return;
       this.schemaService.getType(this.projectId, name).subscribe(type => {

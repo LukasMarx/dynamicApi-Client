@@ -8,10 +8,12 @@ import { MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule } from
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ProjectComponent } from './project.component';
 import { SharedModule } from './shared/shared.module';
+import { WidgetResolverService } from './services/widget-resolver.service';
+import { WidgetService } from './services/widget.service';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ProjectRoutes, MatSidenavModule, MatToolbarModule, MatIconModule, FlexLayoutModule, MatListModule],
   declarations: [ProjectComponent],
-  providers: [SchemaService, AssetService]
+  providers: [SchemaService, AssetService, WidgetResolverService, WidgetService]
 })
 export class ProjectModule {}

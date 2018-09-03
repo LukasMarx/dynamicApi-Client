@@ -13,6 +13,8 @@ import { LangPickerComponent } from '../modals/langPicker/langPicker.component';
 import { ImagePickerComponent } from '../modals/imagePicker/imagePicker.component';
 import { projectService } from './projectService';
 import { IframePickerComponent } from '../modals/iframePicker/iframePicker.component';
+import { WidgetComponent } from '../../../models/widget-component';
+import { Type } from '../../../models/type';
 
 @Component({
   selector: 'editor',
@@ -20,7 +22,9 @@ import { IframePickerComponent } from '../modals/iframePicker/iframePicker.compo
   styleUrls: ['./editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class EditorComponent implements OnInit, OnChanges {
+export class EditorComponent implements OnInit, OnChanges, WidgetComponent {
+  data: any;
+  type: Type;
   @ViewChild('editor') editorDOM;
   @Input() fullDelta;
   @Input() projectId: string;

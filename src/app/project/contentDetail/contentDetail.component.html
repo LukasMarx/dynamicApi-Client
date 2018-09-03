@@ -2,55 +2,36 @@
   <mat-toolbar color="primary">
     Conent: {{type?.name}}
     <span fxFlex></span>
-    <button mat-button class="icon" (click)="onSaveContent()" fxLayout="column" fxLayoutAlign="center end">
+    <button *ngIf="editGrid" mat-button class="icon" (click)="onReleaseContent()" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>add</mat-icon>
+      Add widget
+    </button>
+    <button mat-button class="icon" (click)="editGrid = !editGrid" fxLayout="column" fxLayoutAlign="center end">
+      <mat-icon>edit</mat-icon>
+      Edit Grid
+    </button>
+    <button *ngIf="!editGrid" mat-button class="icon" (click)="onSaveContent()" fxLayout="column" fxLayoutAlign="center end">
       <mat-icon>save</mat-icon>
       Save {{type?.name}}
     </button>
-    <button mat-button class="icon" (click)="onReleaseContent()" fxLayout="column" fxLayoutAlign="center end">
+    <button *ngIf="!editGrid" mat-button class="icon" (click)="onReleaseContent()" fxLayout="column" fxLayoutAlign="center end">
       <mat-icon>check</mat-icon>
       Release {{type?.name}}
     </button>
+
   </mat-toolbar>
   <mat-tab-group fxFlex>
     <mat-tab *ngFor="let group of groups" [label]="group.name" fxFlex fxLayout="column" fxLayoutAlign="space-between stretch">
       <div class="tab-content" fxLayout="column" fxLayoutAlign="stretch">
-        <div *ngFor="let field of group.fields" [ngClass]="{'flex': field.fullPage}">
-          <ng-container [ngSwitch]="field.type">
-            <div style="height: 100%; max-height: 100%;" *ngSwitchCase="'BIG_TEXT'" fxFlex>
+        <ngx-widget-grid [rows]="4" [columns]="5" [highlightNextPosition]="false" [showGrid]="editGrid">
+          <ngx-widget [movable]="editGrid" [resizable]="editGrid" [position]="widget">
+            <div style="height:100%;width:100%; display:flex;">
               <div fxFlex fxLayout="column">
-                <editor [projectId]="projectId " [fullDelta]="workingCopy[field.name]" (fullDeltaChange)="onEditorDeltaChanged(field.name,
-              $event) "></editor>
-
+                <app-widget-factory [type]="type" [widget]="widget"></app-widget-factory>
               </div>
             </div>
-            <mat-form-field *ngSwitchCase="'STRING'">
-              <input matInput [placeholder]="field.name " [(ngModel)]="workingCopy[field.name] ">
-            </mat-form-field>
-            <div class="form-cont " *ngSwitchCase="'ASSET'">
-              <h4>{{field.name}}</h4>
-              <app-assetPicker [(source)]="workingCopy[field.name] " [projectId]="projectId "></app-assetPicker>
-            </div>
-            <mat-form-field *ngSwitchCase="'DATE'">
-              <input matInput [(ngModel)]="workingCopy[field.name] " [matDatepicker]="picker " [placeholder]="field.name">
-              <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <div *ngSwitchDefault>
-              <ng-container *ngIf="field.list">
-                <app-dynamicTable [select]="true" [initialSelection]="connectionToNodes(workingCopy[field.name])" [type]="externalTypes[field.name] | async"
-                  [projectId]="projectId" (selected)="workingCopy[field.name] = $event"></app-dynamicTable>
-              </ng-container>
-              <ng-container *ngIf="!field.list">
-                <mat-select [multiple]="field.list" *ngIf="workingCopy[field.name]" [placeholder]="field.name" [(ngModel)]="workingCopy[field.name].id">
-                  <mat-option *ngFor="let value of (externalTypeContent[field.name]| async)" [value]="value.id">
-                    {{value.id}}
-                  </mat-option>
-                </mat-select>
-              </ng-container>
-            </div>
-
-          </ng-container>
-        </div>
+          </ngx-widget>
+        </ngx-widget-grid>
       </div>
     </mat-tab>
   </mat-tab-group>
